@@ -8,4 +8,6 @@ open module TowerDefense.main {
 	requires javafx.base;
 	requires javafx.graphics;
 	requires com.almasb.fxgl.entity;
+	requires com.almasb.fxgl.core;
+	requires com.almasb.fxgl.scene;
 }

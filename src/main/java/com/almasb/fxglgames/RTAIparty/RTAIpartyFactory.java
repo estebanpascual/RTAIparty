@@ -26,31 +26,15 @@
 
 package com.almasb.fxglgames.RTAIparty;
 
-import com.almasb.fxgl.core.util.LazyValue;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.EntityFactory;
 import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.entity.Spawns;
 import com.almasb.fxgl.entity.components.CollidableComponent;
 import com.almasb.fxgl.pathfinding.CellMoveComponent;
-import com.almasb.fxgl.pathfinding.astar.AStarMoveComponent;
-import com.almasb.fxgl.physics.BoundingShape;
-import com.almasb.fxgl.physics.HitBox;
-import com.almasb.fxgl.texture.AnimatedTexture;
-
-import javafx.geometry.Point2D;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.util.Duration;
-
-
-
 import static com.almasb.fxgl.dsl.FXGL.*;
 import static com.almasb.fxglgames.RTAIparty.RTAIpartyApp.BLOCK_SIZE;
 import static com.almasb.fxglgames.RTAIparty.RTAIpartyType.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Factory for creating in-game entities.
@@ -60,16 +44,74 @@ import java.util.List;
 public class RTAIpartyFactory implements EntityFactory {
 	
     @Spawns("0")
-    public Entity newBlock(SpawnData data) {
-        //var view = texture("block.png");
+    public Entity newBlockBleu(SpawnData data) {
+        var view = texture("block-bleu.png");
 
         return entityBuilder(data)
                 .type(BLOCK)
-                //.view(view)
+                .view(view)
                 .zIndex(-1)
                 .with(new CollidableComponent(true))
                 .with(new CellMoveComponent(BLOCK_SIZE, BLOCK_SIZE, 32))
                 .build();
     }
     
+    @Spawns("1")
+    public Entity newBlockRouge(SpawnData data) {
+        var view = texture("block-rouge.png");
+
+        return entityBuilder(data)
+                .type(BLOCK)
+                .view(view)
+                .zIndex(-1)
+                .with(new CollidableComponent(true))
+                .with(new CellMoveComponent(BLOCK_SIZE, BLOCK_SIZE, 32))
+                .build();
+    }
+
+    @Spawns("2")
+    public Entity newBlockViolet(SpawnData data) {
+        var view = texture("block-violet.png");
+
+        return entityBuilder(data)
+                .type(BLOCK)
+                .view(view)
+                .zIndex(-1)
+                .with(new CollidableComponent(true))
+                .with(new CellMoveComponent(BLOCK_SIZE, BLOCK_SIZE, 32))
+                .build();
+    }
+    
+    
+    @Spawns("background")
+    public Entity newBackground(SpawnData data) {
+        return entityBuilder()
+                .view((texture("background/classe.png")))
+                .zIndex(-1)
+                .build();
+    }
+    
+    @Spawns("boardMenu")
+    public Entity newboardMenu(SpawnData data) {
+        return entityBuilder()
+                .view((texture("tableau.png")))
+                .zIndex(0)
+                .build();
+    }
+    
+    @Spawns("chair")
+    public Entity newchair(SpawnData data) {
+        return entityBuilder()
+                .view((texture("table.png")))
+                .zIndex(1)
+                .build();
+    }
+    
+//    @Spawns("newGameTitle")
+//    public Entity newnewGameTitle(SpawnData data) {
+//        return entityBuilder()
+//                .view()
+//                .zIndex(0)
+//                .build();
+//    }
 }
