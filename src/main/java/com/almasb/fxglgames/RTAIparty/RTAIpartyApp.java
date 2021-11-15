@@ -37,7 +37,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.util.Duration;
 import ui.RTAISceneFactory;
-import ui.RTAIpartyMainMenu;
+import ui.Menu.RTAIpartyMainMenu;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -106,7 +106,7 @@ public class RTAIpartyApp extends GameApplication {
     	}, KeyCode.E);
     }
    
- 
+
     @Override
     protected void initGameVars(Map<String, Object> vars) {
 //        vars.put("score", 0);

@@ -1,13 +1,10 @@
-package ui;
+package ui.Menu;
 
 import static com.almasb.fxgl.dsl.FXGL.getUIFactoryService;
 import java.util.ArrayList;
 
-import com.almasb.fxgl.app.FXGLApplication.GameApplicationService;
-import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.MenuType;
-import com.almasb.fxgl.app.scene.SceneFactory;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.texture.Texture;
 import com.almasb.fxglgames.RTAIparty.Player;
@@ -31,7 +28,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
-import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -93,7 +89,7 @@ public class RTAIpartyMainMenu extends FXGLMenu {
     	//création du texte de description du menu
     	var textDescription = getUIFactoryService().newText("", Color.WHITESMOKE, 20.0);
     	
-    	//on applique la description de l'élement sélectionné au libellé de description
+    	//on applique la description de l'élement sélectionné au libellé deS description
     	textDescription.textProperty().bind(
     		Bindings.createStringBinding(() -> selectedButton.get().description, selectedButton)
     	);
@@ -134,10 +130,12 @@ public class RTAIpartyMainMenu extends FXGLMenu {
         tr.setToX(getContentRoot().getTranslateX() + 2);
         tr.play();
 
+        
+    	this.selectedButtonNbPlayer = new SimpleObjectProperty<>();
       //création du menu de sélection
-        menuButtonNbPlayer buttonNbPlayer2 = new menuButtonNbPlayer("2", () -> choiceNbPlayer(2));
-        menuButtonNbPlayer buttonNbPlayer3 = new menuButtonNbPlayer("3", () -> choiceNbPlayer(3));
-        menuButtonNbPlayer buttonNbPlayer4 = new menuButtonNbPlayer("4", () -> choiceNbPlayer(4));
+        menuButtonNbPlayer buttonNbPlayer2 = new menuButtonNbPlayer("2", () -> choiceNbPlayer(2), this.selectedButtonNbPlayer);
+        menuButtonNbPlayer buttonNbPlayer3 = new menuButtonNbPlayer("3", () -> choiceNbPlayer(3), this.selectedButtonNbPlayer);
+        menuButtonNbPlayer buttonNbPlayer4 = new menuButtonNbPlayer("4", () -> choiceNbPlayer(4), this.selectedButtonNbPlayer);
         
     	this.selectedButtonNbPlayer = new SimpleObjectProperty<>(buttonNbPlayer2);
         
@@ -203,6 +201,10 @@ public class RTAIpartyMainMenu extends FXGLMenu {
 	}
 	
 	private void nextPlayerSetting(SpriteSelector mySpriteSelector) {
+		if(mySpriteSelector.SpriteElementSelected == null) {
+			return;
+		}
+		
 		System.out.println(mySpriteSelector.SpriteElementSelected.getValue());
 		this.Players.add(new Player(this.namePlayer.getText(), mySpriteSelector.SpriteElementSelected.spritePlayer));
 		mySpriteSelector.SpriteElementSelected.validSprite();
@@ -210,6 +212,7 @@ public class RTAIpartyMainMenu extends FXGLMenu {
 		mySpriteSelector.UnselectAll();
 		
 		if(this.choicePlayer - 1 < this.nbPlayer) {
+			mySpriteSelector.SpriteElementSelected = null;
 			getContentRoot().getChildren().remove(getContentRoot().getChildren().size()-1);	
 			playerSettings();
 		}else {
@@ -218,190 +221,52 @@ public class RTAIpartyMainMenu extends FXGLMenu {
 			//lancement du jeu
 			this.fireNewGame();
 			this.app.startGame(Players);
-			
 		}
 	}
 	
 	
-	//extends de la classe StackPane pour un menu personnalisé
-    private class menuButton extends StackPane{
-    	private String name;
-    	private String description;
-    	private Runnable action;
-    	private Text text;
-    	private Rectangle selector;
-    	
-    	public menuButton (String name, String description, Runnable action) {
-    		this.name = name;
-    		this.action = action;
-    		this.description = description;
-    		this.text = getUIFactoryService().newText(this.name, Color.WHITE, 30.0);
-    		this.text.fillProperty().bind(
-    			Bindings.when(focusedProperty()).then(Color.NAVAJOWHITE).otherwise(Color.WHITE)
-    		);
+	//extends du button de menu
+	private class menuButton extends StackPane{
+		private String name;
+		String description;
+		private Runnable action;
+		private Text text;
+		private Rectangle selector;
+		
+		public menuButton (String name, String description, Runnable action) {
+			this.name = name;
+			this.action = action;
+			this.description = description;
+			this.text = getUIFactoryService().newText(this.name, Color.WHITE, 30.0);
+			this.text.fillProperty().bind(
+				Bindings.when(focusedProperty()).then(Color.NAVAJOWHITE).otherwise(Color.WHITE)
+			);
 
-    		this.selector = new Rectangle(6, 17, Color.WHITE);
-    		this.selector.setTranslateX(-20);
-    		this.selector.setTranslateY(-2);
-    		this.selector.visibleProperty().bind(focusedProperty());
-    		
-    		setOnKeyPressed(e -> {
-    				if(e.getCode() == KeyCode.ENTER) {
-    					this.action.run();
-    				}
-    			}
-    		);
-    		
-    		focusedProperty().addListener((observable, oldvalue, isSelected)->{
-    			if (isSelected) {
-    				selectedButton.setValue(this);
-    			}
-    		});
-    		
-    		setAlignment(Pos.CENTER_LEFT);
-    		setFocusTraversable(true);
-    		
-    		getChildren().addAll(this.selector, this.text);
-    		
-    	}
+			this.selector = new Rectangle(6, 17, Color.WHITE);
+			this.selector.setTranslateX(-20);
+			this.selector.setTranslateY(-2);
+			this.selector.visibleProperty().bind(focusedProperty());
+			
+			setOnKeyPressed(e -> {
+					if(e.getCode() == KeyCode.ENTER) {
+						this.action.run();
+					}
+				}
+			);
+			
+			focusedProperty().addListener((observable, oldvalue, isSelected)->{
+				if (isSelected) {
+					selectedButton.setValue(this);
+				}
+			});
+			
+			setAlignment(Pos.CENTER_LEFT);
+			setFocusTraversable(true);
+			
+			getChildren().addAll(this.selector, this.text);
+			
+		}
 
-    }
-    
-    private class menuButtonNbPlayer extends StackPane{
-    	private String name;
-    	private Runnable action;
-    	private Text text;
-    	
-    	public menuButtonNbPlayer (String name, Runnable action) {
-    		this.name = name;
-    		this.action = action;
-    		this.text = getUIFactoryService().newText(this.name, Color.WHITE, 30.0);
-    		this.text.fillProperty().bind(
-    			Bindings.when(focusedProperty()).then(Color.NAVAJOWHITE).otherwise(Color.WHITE)
-    		);
+	}
 
-    		
-    		setOnKeyPressed(e -> {
-    				if(e.getCode() == KeyCode.ENTER) {
-    					this.action.run();
-    				}
-    			}
-    		);
-    		
-    		focusedProperty().addListener((observable, oldvalue, isSelected)->{
-    			if (isSelected) {
-    				selectedButtonNbPlayer.setValue(this);
-    			}
-    		});
-    		
-    		setAlignment(Pos.BASELINE_CENTER);
-    		setFocusTraversable(true);
-    		
-    		getChildren().addAll(this.text);
-    		
-    	}
-    }
-    
-    private class SpriteElement {
-    	private Texture spritePlayer;
-    	private boolean choose;
-    	private SpriteSelector selector;
-    	private Polygon CursorSelect;
-    	private String name;
-    	
-    	SpriteElement(SpriteSelector SpriteSelector, Texture texturePlayer, String name){
-    		
-    		this.selector = SpriteSelector;
-    		this.spritePlayer = texturePlayer;
-    		this.CursorSelect = new Polygon(
-    	            0d, 0d,
-    	            (10 * Math.tan(10)), 10,
-    	            -(10 * Math.tan(10)), 10
-    	    );
-
-    		this.CursorSelect.setTranslateX(-32);
-    		this.CursorSelect.setTranslateY(35);
-    		this.CursorSelect.setVisible(false);
-    		this.name = name;
-    		spritePlayer.setOnMouseClicked(event -> {
-    			this.selector.selectSpriteElement(this);
-    		});
-    	}
-    	
-//    	public boolean AlreadyChoose() {
-//    		return choose;
-//    	}
-    	
-    	public void Unselect() {
-    		this.CursorSelect.setVisible(false);
-    	}
-    	
-    	public void Select() {
-    		this.CursorSelect.setVisible(true);
-    	}
-    	
-    	public Texture getTexture() {
-    		return this.spritePlayer;
-    	}
-    	
-    	public Polygon getCursorSelect() {
-    		return this.CursorSelect;
-    	}
-    	
-    	public String getValue() {
-    		return this.name;
-    	}
-    	
-    	public void validSprite() {
-    		this.choose = true;
-    		this.spritePlayer.setOpacity(0.3);
-    	}
-    	
-    	public boolean AlreadyChoose() {
-    		return this.choose;
-    	}
-    }
-    
-    
-    private class SpriteSelector{
-    	private ArrayList<SpriteElement> tabSpriteElement;
-    	private SpriteElement SpriteElementSelected;
-    	private HBox box;
-    	
-    	SpriteSelector(){
-    		this.tabSpriteElement = new ArrayList<SpriteElement>();
-    		this.box = new HBox(10);
-    		tabSpriteElement.add(new SpriteElement(this, FXGL.getAssetLoader().loadTexture("garcon_blond.png"), "garçon blond"));
-    		tabSpriteElement.add(new SpriteElement(this, FXGL.getAssetLoader().loadTexture("garcon_brun.png"), "garçon brun"));
-    		tabSpriteElement.add(new SpriteElement(this, FXGL.getAssetLoader().loadTexture("fille_blonde.png"), "fille blonde"));
-    		tabSpriteElement.add(new SpriteElement(this, FXGL.getAssetLoader().loadTexture("fille_brune.png"), "fille brune"));
-    		
-    		for(int i = 0; i < tabSpriteElement.size(); i++) {
-    			this.box.getChildren().add(tabSpriteElement.get(i).getTexture());
-    			this.box.getChildren().add(tabSpriteElement.get(i).getCursorSelect());
-    		}
-    	}
-    	
-    	public void selectSpriteElement(SpriteElement SpriteElementSelected){
-    		
-    		UnselectAll();
-    		if(!SpriteElementSelected.AlreadyChoose()) {
-    			this.SpriteElementSelected = SpriteElementSelected;
-    			this.SpriteElementSelected.Select();
-    		}
-    		
-    	}
-    	
-    	public void UnselectAll() {
-    		for(int i = 0; i < tabSpriteElement.size(); i++) {
-    			tabSpriteElement.get(i).Unselect();
-    		}
-    	}
-    	
-    	public HBox getBox() {
-    		return this.box;
-    	}
-    	
-    }
-	
 }

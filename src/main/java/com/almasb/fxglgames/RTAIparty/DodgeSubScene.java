@@ -1,22 +1,12 @@
 package com.almasb.fxglgames.RTAIparty;
 
 
-import com.almasb.fxgl.animation.Interpolators;
-import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.level.Level;
 import com.almasb.fxgl.entity.level.text.TextLevelLoader;
 import com.almasb.fxgl.input.Input;
 import com.almasb.fxgl.input.UserAction;
-import com.almasb.fxgl.particle.ParticleEmitters;
-import com.almasb.fxgl.particle.ParticleSystem;
 import com.almasb.fxgl.scene.SubScene;
-import javafx.geometry.Point2D;
-import javafx.scene.effect.BlendMode;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseButton;
-import javafx.scene.paint.Color;
-import javafx.util.Duration;
-
 import static com.almasb.fxgl.dsl.FXGL.*;
 
 /**
@@ -49,6 +39,8 @@ public class DodgeSubScene extends SubScene {
     	
     	Level level = getAssetLoader().loadLevel("RTAIparty_Dodge.txt", new TextLevelLoader(32, 32, ' '));
     	getGameWorld().setLevel(level);
+    	
+    	
     	
 
     	System.out.println("JEU ESQUIVE; \n joueur : "+ this.player.getName() + "\n difficulté : " + this.currentLap);

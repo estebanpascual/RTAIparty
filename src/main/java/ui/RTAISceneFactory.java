@@ -5,6 +5,8 @@ import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.SceneFactory;
 import com.almasb.fxglgames.RTAIparty.RTAIpartyApp;
 
+import ui.Menu.RTAIpartyMainMenu;
+
 
 public class RTAISceneFactory extends SceneFactory {
 	
