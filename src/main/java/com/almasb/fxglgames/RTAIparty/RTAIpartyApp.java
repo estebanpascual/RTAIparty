@@ -57,7 +57,7 @@ public class RTAIpartyApp extends GameApplication {
 
 	public static final int BLOCK_SIZE = 32;
 
-    public static final int MAP_SIZE = 21;
+    public static final int MAP_SIZE = 40;
 
     public static final int WIDTHSIZE = 1280;
     public static final int HEIGHTSIZE = 720;

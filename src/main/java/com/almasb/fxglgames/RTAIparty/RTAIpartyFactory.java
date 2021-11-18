@@ -45,7 +45,7 @@ public class RTAIpartyFactory implements EntityFactory {
 	
     @Spawns("0")
     public Entity newBlockBleu(SpawnData data) {
-        var view = texture("block-bleu.png");
+        var view = texture("DodgeBlock.png");
 
         return entityBuilder(data)
                 .type(BLOCK)
