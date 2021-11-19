@@ -194,7 +194,6 @@ public class RTAIpartyMainMenu extends FXGLMenu {
 	    	box.setTranslateX(450);
 	    	box.setTranslateY(220);
 	    	box.setAlignment(Pos.CENTER);
-	    	
 	  
 	    	
 	    	getContentRoot().getChildren().addAll(box);

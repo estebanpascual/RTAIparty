@@ -30,5 +30,5 @@ package com.almasb.fxglgames.RTAIparty;
  * @author Almas Baimagambetov (almaslvl@gmail.com)
  */
 public enum RTAIpartyType {
-    BLOCK
+    BLOCK, DODGE_PLAYER
 }

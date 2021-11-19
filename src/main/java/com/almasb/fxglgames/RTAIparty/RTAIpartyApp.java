@@ -33,6 +33,9 @@ import com.almasb.fxgl.entity.level.Level;
 import com.almasb.fxgl.entity.level.text.TextLevelLoader;
 import com.almasb.fxgl.input.Input;
 import com.almasb.fxgl.input.UserAction;
+import com.almasb.fxgl.pathfinding.CellState;
+import com.almasb.fxgl.pathfinding.astar.AStarGrid;
+
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.util.Duration;
@@ -119,6 +122,15 @@ public class RTAIpartyApp extends GameApplication {
     
     @Override
     protected void initGame() {
+    	
+    	AStarGrid grid = AStarGrid.fromWorld(getGameWorld(), RTAIpartyApp.MAP_SIZE, RTAIpartyApp.MAP_SIZE, RTAIpartyApp.BLOCK_SIZE, RTAIpartyApp.BLOCK_SIZE, (type) -> {
+            //if (type == RTAIpartyType.BLOCK)
+                //return CellState.NOT_WALKABLE;
+
+            return CellState.WALKABLE;
+        });
+
+        set("grid", grid);
     	
     }
     
