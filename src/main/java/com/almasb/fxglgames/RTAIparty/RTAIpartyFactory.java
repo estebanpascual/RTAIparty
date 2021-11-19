@@ -114,4 +114,18 @@ public class RTAIpartyFactory implements EntityFactory {
 //                .zIndex(0)
 //                .build();
 //    }
+    @Spawns("decor")
+    public Entity newdecor(SpawnData data) {
+        return entityBuilder()
+                .view((texture("background/decorrythm.png")))
+                .zIndex(1)
+                .build();
+    }
+    @Spawns("numero1")
+    public Entity newnumero1(SpawnData data) {
+        return entityBuilder()
+                .view((texture("Numero/numero1.png")))
+                .zIndex(1)
+                .build();
+    }
 }

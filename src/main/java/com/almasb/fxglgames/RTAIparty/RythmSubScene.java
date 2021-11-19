@@ -3,6 +3,7 @@ package com.almasb.fxglgames.RTAIparty;
 
 import com.almasb.fxgl.animation.Interpolators;
 import com.almasb.fxgl.entity.Entity;
+import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.entity.level.Level;
 import com.almasb.fxgl.entity.level.text.TextLevelLoader;
 import com.almasb.fxgl.input.Input;
@@ -45,10 +46,13 @@ public class RythmSubScene extends SubScene {
     	}, KeyCode.E);
     	
     	
-    	Level level = getAssetLoader().loadLevel("RTAIparty_Rythm.txt", new TextLevelLoader(32, 32, ' '));
-    	getGameWorld().setLevel(level);
-
-
+    	/*Level level = getAssetLoader().loadLevel("RTAIparty_Rythm.txt", new TextLevelLoader(32, 32, ' '));
+    	getGameWorld().setLevel(level);*/
+    	spawn("decor",new SpawnData(0, 0));
+    	Entity num1 = spawn("numero1", new SpawnData());
+    	num1.setX(270);
+    	num1.setY(120);
+    	
     	System.out.println("JEU DE RYTHME; \n joueur : "+ this.player.getName() + "\n difficulté : " + this.currentLap);
     	
     }
