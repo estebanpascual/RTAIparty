@@ -20,20 +20,22 @@
         <mainClassName>com.almasb.fxglgames.RTAIparty.RTAIpartyApp</mainClassName>
     </properties>
 
-    <repositories>
-        <repository>
-            <id>oss.sonatype.org-snapshot</id>
-            <url>http://oss.sonatype.org/content/repositories/snapshots</url>
-        </repository>
-    </repositories>
-
     <dependencies>
-        <dependency>
-            <groupId>com.github.almasb</groupId>
-            <artifactId>fxgl</artifactId>
-            <version>${fxgl.version}</version>
-        </dependency>
-    </dependencies>
+    <dependency>
+        <groupId>com.github.almasb</groupId>
+        <artifactId>fxgl</artifactId>
+        <version>11+dev-SNAPSHOT</version>
+    	</dependency>
+	</dependencies>
+
+	<repositories>
+	    <repository>
+	        <id>oss.sonatype.org-snapshot</id>
+	        <url>http://oss.sonatype.org/content/repositories/snapshots</url>
+	    </repository>
+	</repositories>
+
+
 
     <build>
         <plugins>

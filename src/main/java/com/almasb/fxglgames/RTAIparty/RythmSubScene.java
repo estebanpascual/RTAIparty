@@ -2,6 +2,7 @@ package com.almasb.fxglgames.RTAIparty;
 
 
 import com.almasb.fxgl.animation.Interpolators;
+import com.almasb.fxgl.app.scene.GameSubScene;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.entity.level.Level;
@@ -23,16 +24,18 @@ import static com.almasb.fxgl.dsl.FXGL.*;
 /**
  * @author Almas Baimagambetov (almaslvl@gmail.com)
  */
-public class RythmSubScene extends SubScene {
+public class RythmSubScene extends GameSubScene {
 
     Player player;
     int currentLap;
     PartyManager partyManager;
     
     public RythmSubScene(Player player, int currentLap, PartyManager partyManager) {
+    	super(RTAIpartyApp.WIDTHSIZE, RTAIpartyApp.HEIGHTSIZE);
     	this.player = player;
     	this.currentLap = currentLap;
     	this.partyManager = partyManager;
+    	this.getGameWorld().addEntityFactory(new RTAIpartyFactory());
     	
     	Input input = getInput();
     	
@@ -40,6 +43,7 @@ public class RythmSubScene extends SubScene {
     		@Override
     		protected void onActionBegin() {
     			System.out.println("fin de partie");
+    			getSceneService().popSubScene();
     			partyManager.nextPlayer();
     		}
 
@@ -48,8 +52,8 @@ public class RythmSubScene extends SubScene {
     	
     	/*Level level = getAssetLoader().loadLevel("RTAIparty_Rythm.txt", new TextLevelLoader(32, 32, ' '));
     	getGameWorld().setLevel(level);*/
-    	spawn("decor",new SpawnData(0, 0));
-    	Entity num1 = spawn("numero1", new SpawnData());
+    	this.getGameWorld().spawn("decor",new SpawnData(0, 0));
+    	Entity num1 = this.getGameWorld().spawn("numero1", new SpawnData());
     	num1.setX(270);
     	num1.setY(120);
     	

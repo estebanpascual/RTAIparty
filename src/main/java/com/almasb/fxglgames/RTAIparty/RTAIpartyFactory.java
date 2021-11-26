@@ -38,6 +38,7 @@ import com.almasb.fxgl.physics.BoundingShape;
 import com.almasb.fxgl.physics.HitBox;
 import com.almasb.fxgl.texture.AnimatedTexture;
 import com.almasb.fxglgames.RTAIparty.components.DodgePlayerComponent;
+import com.almasb.fxglgames.RTAIparty.components.DodgeProjectileComponent;
 
 import javafx.geometry.Point2D;
 import javafx.util.Duration;
@@ -95,20 +96,35 @@ public class RTAIpartyFactory implements EntityFactory {
     
     
     
-    @Spawns("P")
+    @Spawns("playerDodge")
     public Entity newDodgePlayer(SpawnData data) {
     	var view = texture("garcon_dodge.png");
 
         var e = entityBuilder(data)
                 .type(DODGE_PLAYER)
-                .bbox(new HitBox(new Point2D(4, 4), BoundingShape.box(32, 32)))
+                .bbox(new HitBox(new Point2D(0, 16), BoundingShape.box(32, 32)))
                 .view(view)
+                .zIndex(3)
                 .with(new CollidableComponent(true))
-                .with(new CellMoveComponent(BLOCK_SIZE, BLOCK_SIZE, 200).allowRotation(true))
-                // there is no grid constructed yet, so pass lazily
-                .with(new AStarMoveComponent(new LazyValue<>(() -> geto("grid"))))
                 .with(new DodgePlayerComponent())
-                .rotationOrigin(35 / 2.0, 40 / 2.0)
+                .build();
+
+        e.setLocalAnchorFromCenter();
+
+        return e;
+    }
+    
+    @Spawns("projectileDodge")
+    public Entity newDodgeProjectile(SpawnData data) {
+    	var view = texture("screen.png");
+
+        var e = entityBuilder(data)
+                .type(DODGE_PROJECTILE)
+                .bbox(new HitBox(new Point2D(0, 32), BoundingShape.box(64, 64)))
+                .view(view)
+                .zIndex(3)
+                .with(new CollidableComponent(true))
+                .with(new DodgeProjectileComponent())
                 .build();
 
         e.setLocalAnchorFromCenter();
@@ -131,10 +147,20 @@ public class RTAIpartyFactory implements EntityFactory {
                 .zIndex(1)
                 .build();
     }
+    
     @Spawns("numero1")
     public Entity newnumero1(SpawnData data) {
         return entityBuilder()
                 .view((texture("Numero/numero1.png")))
+                .zIndex(1)
+                .build();
+    }
+    
+    
+    @Spawns("decordodge")
+    public Entity newdecordodge(SpawnData data) {
+        return entityBuilder()
+                .view((texture("background/decordodge.png")))
                 .zIndex(1)
                 .build();
     }

@@ -9,19 +9,24 @@ import com.almasb.fxgl.scene.SubScene;
 import javafx.scene.input.KeyCode;
 import static com.almasb.fxgl.dsl.FXGL.*;
 
+import com.almasb.fxgl.app.scene.GameSubScene;
+
 /**
  * @author Almas Baimagambetov (almaslvl@gmail.com)
  */
-public class MemorySubScene extends SubScene {
+public class MemorySubScene extends GameSubScene {
 
     Player player;
     int currentLap;
     PartyManager partyManager;
     
     public MemorySubScene(Player player, int currentLap, PartyManager partyManager) {
+    	super(RTAIpartyApp.WIDTHSIZE, RTAIpartyApp.HEIGHTSIZE);
     	this.player = player;
     	this.currentLap = currentLap;
     	this.partyManager = partyManager;
+    	
+    	this.getGameWorld().addEntityFactory(new RTAIpartyFactory());
     	
     	Input input = getInput();
     	
@@ -29,14 +34,11 @@ public class MemorySubScene extends SubScene {
     		@Override
     		protected void onActionBegin() {
     			System.out.println("fin de partie");
+    			getSceneService().popSubScene();
     			partyManager.nextPlayer();
     		}
 
     	}, KeyCode.E);
-    	
-    	
-    	Level level = getAssetLoader().loadLevel("RTAIparty_Memory.txt", new TextLevelLoader(32, 32, ' '));
-    	getGameWorld().setLevel(level);
 
 
     	System.out.println("JEU DE MEMOIRE; \n joueur : "+ this.player.getName() + "\n difficulté : " + this.currentLap);

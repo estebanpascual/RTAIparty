@@ -6,6 +6,7 @@ import static com.almasb.fxgl.dsl.FXGL.runOnce;
 
 import java.util.ArrayList;
 
+import com.almasb.fxgl.app.scene.GameSubScene;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.scene.SubScene;
 
@@ -16,7 +17,7 @@ public class PartyManager {
 	private int currentPlayer;
 	private int currentLap;
 	private int currentGame;
-	private SubScene GameScene;
+	private GameSubScene GameScene;
 
 	
 	public static final int DODGEGAME = 1;
@@ -29,7 +30,7 @@ public class PartyManager {
 		this.currentLap = 1;
 		this.currentPlayer = 0;
 		
-		getGameWorld().addEntityFactory(new RTAIpartyFactory());
+		//getGameWorld().addEntityFactory(new RTAIpartyFactory());
 	}
 	
 	public void addPlayer(Player p) {
@@ -40,11 +41,14 @@ public class PartyManager {
 		this.GameScene = new DodgeSubScene(players.get(this.currentPlayer), this.currentLap, this);
 		runOnce(() -> {
 			getSceneService().pushSubScene(this.GameScene);
+
     	 }, Duration.seconds(0.0));
 	}
 	
 	public void nextPlayer() {
-		getGameWorld().getEntitiesCopy().forEach(Entity::removeFromWorld);
+		
+		this.GameScene.getGameWorld().getEntitiesCopy().forEach(Entity::removeFromWorld);
+		
 		System.out.println("next Player");
 		this.currentPlayer++;
 		if(this.players.size()-1 < this.currentPlayer){
@@ -80,6 +84,7 @@ public class PartyManager {
 				this.GameScene = new DodgeSubScene(players.get(this.currentPlayer), this.currentLap, this);
 				runOnce(() -> {
 					getSceneService().pushSubScene(this.GameScene);
+
 		    	 }, Duration.seconds(0.0));
 				break;
 				
@@ -87,6 +92,7 @@ public class PartyManager {
 				this.GameScene = new RythmSubScene(players.get(this.currentPlayer), this.currentLap, this);
 				runOnce(() -> {
 					getSceneService().pushSubScene(this.GameScene);
+					
 		    	 }, Duration.seconds(0.0));
 				break;
 			
@@ -94,13 +100,13 @@ public class PartyManager {
 				this.GameScene = new MemorySubScene(players.get(this.currentPlayer), this.currentLap, this);
 				runOnce(() -> {
 					getSceneService().pushSubScene(this.GameScene);
+
 		    	 }, Duration.seconds(0.0));
 				break;
 
 			default:
 				break;
 		}
-		
 		
 	}
 	
