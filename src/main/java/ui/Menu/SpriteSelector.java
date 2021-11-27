@@ -15,10 +15,10 @@ public class SpriteSelector{
 	SpriteSelector(){
 		this.tabSpriteElement = new ArrayList<SpriteElement>();
 		this.box = new HBox(10);
-		tabSpriteElement.add(new SpriteElement(this, FXGL.getAssetLoader().loadTexture("garcon_blond.png"), "garçon blond"));
-		tabSpriteElement.add(new SpriteElement(this, FXGL.getAssetLoader().loadTexture("garcon_brun.png"), "garçon brun"));
-		tabSpriteElement.add(new SpriteElement(this, FXGL.getAssetLoader().loadTexture("fille_blonde.png"), "fille blonde"));
-		tabSpriteElement.add(new SpriteElement(this, FXGL.getAssetLoader().loadTexture("fille_brune.png"), "fille brune"));
+		tabSpriteElement.add(new SpriteElement(this, FXGL.getAssetLoader().loadTexture("garcon_blond.png"), "garçon blond", 1));
+		tabSpriteElement.add(new SpriteElement(this, FXGL.getAssetLoader().loadTexture("garcon_brun.png"), "garçon brun", 2));
+		tabSpriteElement.add(new SpriteElement(this, FXGL.getAssetLoader().loadTexture("fille_blonde.png"), "fille blonde", 3));
+		tabSpriteElement.add(new SpriteElement(this, FXGL.getAssetLoader().loadTexture("fille_brune.png"), "fille brune", 4));
 		
 		for(int i = 0; i < tabSpriteElement.size(); i++) {
 			this.box.getChildren().add(tabSpriteElement.get(i).getTexture());

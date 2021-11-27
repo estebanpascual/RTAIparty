@@ -205,7 +205,8 @@ public class RTAIpartyMainMenu extends FXGLMenu {
 		}
 		
 		System.out.println(mySpriteSelector.SpriteElementSelected.getValue());
-		this.Players.add(new Player(this.namePlayer.getText(), mySpriteSelector.SpriteElementSelected.spritePlayer));
+		
+		this.Players.add(new Player(this.namePlayer.getText(), mySpriteSelector.SpriteElementSelected.getTypePlayer()));
 		mySpriteSelector.SpriteElementSelected.validSprite();
 		this.choicePlayer++;
 		mySpriteSelector.UnselectAll();

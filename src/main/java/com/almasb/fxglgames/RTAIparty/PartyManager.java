@@ -45,14 +45,59 @@ public class PartyManager {
     	 }, Duration.seconds(0.0));
 	}
 	
-	public void nextPlayer() {
+	public void nextPlayer(boolean result) {
 		
+		if(result) {
+			this.players.get(this.currentPlayer).onWinGame();
+		}else {
+			this.players.get(this.currentPlayer).onLoseGame();
+		}
+			
 		this.GameScene.getGameWorld().getEntitiesCopy().forEach(Entity::removeFromWorld);
 		
 		System.out.println("next Player");
+		
 		this.currentPlayer++;
+		checkPlayerTurn();
+		
+		while(this.players.get(this.currentPlayer).isLosing() == true) {
+			System.out.println(this.players.get(this.currentPlayer).getName() + " passe son tour car il a perdu");
+			
+			this.currentPlayer++;
+			checkPlayerTurn();
+		}
+		
+		
+		nextGame();
+	}
+	
+	
+	public void checkPlayerTurn() {
+		
 		if(this.players.size()-1 < this.currentPlayer){
 			
+			int count = 0;
+			int nbPlayerLive = 0;
+			while (this.players.size() > count) {
+				if(!this.players.get(count).isLosing()) {
+					nbPlayerLive++;
+				}
+				 count++;
+			}
+			
+			if(nbPlayerLive < 2) {
+				int countPlayer = 0;
+				while (this.players.size() > countPlayer) {
+					System.out.println("Nom : " + this.players.get(countPlayer).getName() + " | Score: " + this.players.get(countPlayer).getWinCount());
+					
+					countPlayer++;
+				}
+				
+				System.out.println("FIN DE LA PARTIE");
+				System.exit(3);
+			}
+				
+				
 			this.currentPlayer = 0;
 			
 			switch (currentGame) {
@@ -74,8 +119,8 @@ public class PartyManager {
 			}
 		}
 		
-		nextGame();
 	}
+	
 	
 	public void nextGame() {
 		

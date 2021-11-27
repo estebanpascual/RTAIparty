@@ -2,6 +2,7 @@ package com.almasb.fxglgames.RTAIparty.components;
 
 import java.util.Random;
 
+import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.component.Component;
 
 public class DodgeProjectileComponent extends Component {
@@ -84,6 +85,14 @@ public class DodgeProjectileComponent extends Component {
     	
     	getEntity().setRotation(getEntity().getRotation() + 2);
     }
+
+	public boolean checkCollision(Entity player) {
+		if(player.getBoundingBoxComponent().isCollidingWith(this.getEntity().getBoundingBoxComponent())) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 
     
 }

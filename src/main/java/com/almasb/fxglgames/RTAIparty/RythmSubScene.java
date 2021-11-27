@@ -29,6 +29,8 @@ public class RythmSubScene extends GameSubScene {
     Player player;
     int currentLap;
     PartyManager partyManager;
+    public static final boolean WIN		= true;
+    public static final boolean LOOSE	= false;
     
     public RythmSubScene(Player player, int currentLap, PartyManager partyManager) {
     	super(RTAIpartyApp.WIDTHSIZE, RTAIpartyApp.HEIGHTSIZE);
@@ -44,7 +46,7 @@ public class RythmSubScene extends GameSubScene {
     		protected void onActionBegin() {
     			System.out.println("fin de partie");
     			getSceneService().popSubScene();
-    			partyManager.nextPlayer();
+    			partyManager.nextPlayer(WIN);
     		}
 
     	}, KeyCode.E);

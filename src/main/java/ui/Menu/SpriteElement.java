@@ -10,9 +10,11 @@ public class SpriteElement {
     	private SpriteSelector selector;
     	private Polygon CursorSelect;
     	private String name;
+    	private int typePlayer;
     	
-    	SpriteElement(SpriteSelector SpriteSelector, Texture texturePlayer, String name){
+    	SpriteElement(SpriteSelector SpriteSelector, Texture texturePlayer, String name, int typePlayer){
     		
+    		this.typePlayer = typePlayer;
     		this.selector = SpriteSelector;
     		this.spritePlayer = texturePlayer;
     		this.CursorSelect = new Polygon(
@@ -48,6 +50,10 @@ public class SpriteElement {
     	
     	public Polygon getCursorSelect() {
     		return this.CursorSelect;
+    	}
+    	
+    	public int getTypePlayer() {
+    		return this.typePlayer;
     	}
     	
     	public String getValue() {

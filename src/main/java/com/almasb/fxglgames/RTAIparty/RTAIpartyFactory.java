@@ -98,7 +98,7 @@ public class RTAIpartyFactory implements EntityFactory {
     
     @Spawns("playerDodge")
     public Entity newDodgePlayer(SpawnData data) {
-    	var view = texture("garcon_dodge.png");
+    	var view = texture("garcon_blond_dodge.png");
 
         var e = entityBuilder(data)
                 .type(DODGE_PLAYER)

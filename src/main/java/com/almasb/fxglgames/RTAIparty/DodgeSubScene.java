@@ -2,6 +2,7 @@ package com.almasb.fxglgames.RTAIparty;
 
 
 import com.almasb.fxgl.app.scene.GameSubScene;
+import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.dsl.components.ProjectileComponent;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.SpawnData;
@@ -18,6 +19,7 @@ import com.almasb.fxgl.physics.PhysicsComponent;
 import com.almasb.fxgl.physics.box2d.dynamics.BodyType;
 import com.almasb.fxgl.physics.box2d.dynamics.FixtureDef;
 import com.almasb.fxgl.scene.SubScene;
+import com.almasb.fxgl.time.TimerAction;
 import com.almasb.fxglgames.RTAIparty.components.DodgePlayerComponent;
 import com.almasb.fxglgames.RTAIparty.components.DodgeProjectileComponent;
 
@@ -26,9 +28,11 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,17 +47,22 @@ public class DodgeSubScene extends GameSubScene {
     Player player;
     int currentLap;
     PartyManager partyManager;
+    int timeCount;
+    boolean isStart;
+    Entity startMenu;
+    Entity gamePlayer;
+    
+    public static final boolean WIN		= true;
+    public static final boolean LOOSE	= false;
     
     private Entity createPhysicsEntity() {
-        // 1. create and configure physics component
+
         PhysicsComponent physics = new PhysicsComponent();
         physics.setBodyType(BodyType.DYNAMIC);
         physics.setFixtureDef(new FixtureDef().density(0.7f).restitution(0.3f));
         
         
         Rectangle rectangle = new Rectangle(900, 300);
-        //Setting the properties of the ellipse
-
 
         rectangle.setFill(Color.LIGHTBLUE);
 
@@ -65,6 +74,36 @@ public class DodgeSubScene extends GameSubScene {
                 .with(physics)
                 .build();
     }
+    
+    
+    
+    private Entity createTexte(String text) {
+    	
+    	 Text view = FXGL.getUIFactoryService().newText(text);
+    	 view.setFill(Color.WHITE);
+    	 //view.setTranslateY(RTAIpartyApp.HEIGHTSIZE - 2);
+    	  
+             
+        return entityBuilder()
+                .zIndex(5)
+                .view(view)
+                .build();
+    }
+    
+    
+    private Entity createStart() {
+    	
+   	 Text view = FXGL.getUIFactoryService().newText("C'est au tour de " + this.player.getName() + " sur le jeu d'esquive !" + "\n\nAppuyer sur la touche Entrée pour commencer", Color.WHITE, 30.0);
+   	 view.setFill(Color.BLACK);
+   	 //view.setTranslateY(RTAIpartyApp.HEIGHTSIZE - 2);
+   	  
+            
+       return entityBuilder()
+               .zIndex(5)
+               .view(view)
+               .build();
+   }
+    
     
     public Entity getPlayer() {
         return this.getGameWorld().getSingleton(RTAIpartyType.DODGE_PLAYER);
@@ -80,6 +119,12 @@ public class DodgeSubScene extends GameSubScene {
     	List<Entity> EntityProjectile = getGameWorld().getEntitiesByComponent(DodgeProjectileComponent.class);
     	for(int i = 0; i < EntityProjectile.size(); i++) {
     		EntityProjectile.get(i).getComponent(DodgeProjectileComponent.class).move();
+    		if(this.gamePlayer != null) {
+    			if(EntityProjectile.get(i).getComponent(DodgeProjectileComponent.class).checkCollision(this.gamePlayer)) {
+    				this.gamePlayer = null;
+    				LooseGame();
+    			}    			
+    		}
     	}
     	
     }
@@ -91,57 +136,76 @@ public class DodgeSubScene extends GameSubScene {
     	this.player = player;
     	this.currentLap = currentLap;
     	this.partyManager = partyManager;
+    	this.isStart = false;
     	
     	
-    	Input input = this.getInput();
-    	
-    	input.addAction(new UserAction(new String("fin")) {
-    		@Override
-    		protected void onActionBegin() {
-    			System.out.println("fin de partie");
+    	this.getInput().addAction(new UserAction("Fin") {
+            @Override
+            protected void onAction() {
+        		System.out.println("fin de partie");
     			getSceneService().popSubScene();
-    			partyManager.nextPlayer();
-    			
-    		}
-
-    	}, KeyCode.E);
+    			partyManager.nextPlayer(LOOSE);
+            }
+        }, KeyCode.E);
+    	
+    	
     	
     	this.getInput().addAction(new UserAction("Up") {
             @Override
             protected void onAction() {
-                getPlayerComponent().up();
+            	if(isStart) {
+            		getPlayerComponent().up();            		
+            	}
             }
         }, KeyCode.UP);
 
     	this.getInput().addAction(new UserAction("Down") {
             @Override
             protected void onAction() {
-                getPlayerComponent().down();
+            	if(isStart) {
+            		getPlayerComponent().down();
+            	}
             }
         }, KeyCode.DOWN);
 
     	this.getInput().addAction(new UserAction("Left") {
             @Override
             protected void onAction() {
-                getPlayerComponent().left();
+            	if(isStart) {
+            		getPlayerComponent().left();            		
+            	}
             }
         }, KeyCode.LEFT);
 
         getInput().addAction(new UserAction("Right") {
             @Override
             protected void onAction() {
-                getPlayerComponent().right();
+            	if(isStart) {
+            		getPlayerComponent().right();            		
+            	}
             }
         }, KeyCode.RIGHT);
         
-    	
+        getInput().addAction(new UserAction("Start") {
+            @Override
+            protected void onAction() {
+            	
+            	if(startMenu != null) {
+            		startMenu.removeFromWorld();
+            		startMenu = null;
+            	}
+            	
+                isStart = true;
+            }
+        }, KeyCode.ENTER);
+        
 
 //    	Level level = getAssetLoader().loadLevel("RTAIparty_Dodge.txt", new TextLevelLoader(32, 32, ' '));
 //    	getGameWorld().setLevel(level);
         
         this.getGameWorld().addEntityFactory(new RTAIpartyFactory());
         this.getGameWorld().spawn("decordodge",new SpawnData(0, 0));
-        this.getGameWorld().spawn("playerDodge",new SpawnData(RTAIpartyApp.WIDTHSIZE / 2, RTAIpartyApp.HEIGHTSIZE / 2));
+        this.gamePlayer = this.getGameWorld().spawn("playerDodge",new SpawnData(RTAIpartyApp.WIDTHSIZE / 2, RTAIpartyApp.HEIGHTSIZE / 2));
         
         
         Entity tri = createPhysicsEntity();
@@ -149,18 +213,93 @@ public class DodgeSubScene extends GameSubScene {
         tri.setX(190);
         tri.setY(300);
         
-
+        this.timeCount = 15;
+        
+        Entity TimeRemaining = createTexte("Temps restant : " + String.valueOf(timeCount));
+        TimeRemaining.setX(70);
+        TimeRemaining.setY(85);
+        
+        Entity Description = createTexte("Tour de jeu de " + this.player.getName() + "\nTour n°" + this.currentLap);
+        Description.setX(70);
+        Description.setY(30);
+        
+        startMenu = createStart();
+        startMenu.setX(450);
+        startMenu.setY(50);
+        
         this.getGameWorld().addEntity(tri);
+        this.getGameWorld().addEntity(TimeRemaining);
+        this.getGameWorld().addEntity(Description);
+        this.getGameWorld().addEntity(startMenu);
         
         getPlayerComponent().addLimit(tri);
         getPlayerComponent().setSpeed(this.currentLap);
         
+        
+        
+        var pView = texture("garcon_blond_dodge");
+        switch (this.player.getTypePlayer()) {
+			case Player.GARCON_BLOND:
+				pView = texture("garcon_blond_dodge.png");
+				break;
+				
+			case Player.GARCON_BRUN:
+				pView = texture("garcon_brun_dodge.png");
+				break;
+			
+
+			case Player.FILLE_BLONDE:
+				pView = texture("fille_blonde_dodge.png");
+				break;
+				
+			case Player.FILLE_BRUNE:
+				pView = texture("fille_brune_dodge.png");
+				break;
+				
+			default:
+				break;
+		}
+        
+        getPlayer().getViewComponent().clearChildren();
+        getPlayer().getViewComponent().addChild(pView);
+        
+        
+        
         this.getTimer().runAtInterval(() -> {
-        	Entity projectile = this.getGameWorld().spawn("projectileDodge",new SpawnData(0,0));
-            projectile.getComponent(DodgeProjectileComponent.class).init(this.currentLap);
+        	if(this.isStart) {
+	        	Entity projectile = this.getGameWorld().spawn("projectileDodge",new SpawnData(0,0));
+	            projectile.getComponent(DodgeProjectileComponent.class).init(this.currentLap);
+        	}
         }, Duration.millis(1000 / this.currentLap));
+        
+        
+        
+        this.getTimer().runAtInterval(() -> {
+        	if(this.isStart) {
+	        	this.timeCount--;
+	        	 Text view = FXGL.getUIFactoryService().newText("Temps restant : " + String.valueOf(this.timeCount));
+	        	 view.setFill(Color.WHITE);
+	        	 
+	        	TimeRemaining.getViewComponent().clearChildren();
+	        	TimeRemaining.getViewComponent().addChild(view);
+	        	
+	        	if(timeCount == 0) {
+	        		System.out.println("fin de partie");
+	    			getSceneService().popSubScene();
+	    			partyManager.nextPlayer(WIN);
+	        	}
+        	}	
+        }, Duration.millis(1000));
+        
+       
         
     	System.out.println("JEU ESQUIVE; \n joueur : "+ this.player.getName() + "\n difficulté : " + this.currentLap);
     	
+    }
+    
+    private void LooseGame() {
+    	System.out.println("fin de partie");
+		getSceneService().popSubScene();
+		partyManager.nextPlayer(LOOSE);
     }
 }
