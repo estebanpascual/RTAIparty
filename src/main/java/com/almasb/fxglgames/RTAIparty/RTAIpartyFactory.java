@@ -26,26 +26,23 @@
 
 package com.almasb.fxglgames.RTAIparty;
 
-import com.almasb.fxgl.core.util.LazyValue;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.EntityFactory;
 import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.entity.Spawns;
 import com.almasb.fxgl.entity.components.CollidableComponent;
 import com.almasb.fxgl.pathfinding.CellMoveComponent;
-import com.almasb.fxgl.pathfinding.astar.AStarMoveComponent;
 import com.almasb.fxgl.physics.BoundingShape;
 import com.almasb.fxgl.physics.HitBox;
-import com.almasb.fxgl.texture.AnimatedTexture;
 import com.almasb.fxglgames.RTAIparty.components.DodgePlayerComponent;
 import com.almasb.fxglgames.RTAIparty.components.DodgeProjectileComponent;
 
 import javafx.geometry.Point2D;
-import javafx.util.Duration;
-
 import static com.almasb.fxgl.dsl.FXGL.*;
 import static com.almasb.fxglgames.RTAIparty.RTAIpartyApp.BLOCK_SIZE;
 import static com.almasb.fxglgames.RTAIparty.RTAIpartyType.*;
+
+import java.util.Random;
 
 
 /**
@@ -116,7 +113,21 @@ public class RTAIpartyFactory implements EntityFactory {
     
     @Spawns("projectileDodge")
     public Entity newDodgeProjectile(SpawnData data) {
+    	Random randomTexture = new Random();
+    	int iRandomTexture;
+    	iRandomTexture = randomTexture.nextInt(2);
+    	
     	var view = texture("screen.png");
+    	switch(iRandomTexture){
+        case 0 : 
+        	view = texture("screen.png");
+            break; // Here
+        case 1 :
+        	view = texture("mouse.png");
+            break; // And here
+    	}
+    	
+    	
 
         var e = entityBuilder(data)
                 .type(DODGE_PROJECTILE)

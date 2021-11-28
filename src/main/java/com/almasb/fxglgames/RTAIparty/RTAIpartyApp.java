@@ -27,10 +27,6 @@ package com.almasb.fxglgames.RTAIparty;
 
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
-import com.almasb.fxgl.app.scene.FXGLMenu;
-import com.almasb.fxgl.app.scene.SceneFactory;
-import com.almasb.fxgl.entity.level.Level;
-import com.almasb.fxgl.entity.level.text.TextLevelLoader;
 import com.almasb.fxgl.input.Input;
 import com.almasb.fxgl.input.UserAction;
 import com.almasb.fxgl.pathfinding.CellState;
@@ -38,10 +34,7 @@ import com.almasb.fxgl.pathfinding.astar.AStarGrid;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
-import javafx.util.Duration;
 import ui.RTAISceneFactory;
-import ui.Menu.RTAIpartyMainMenu;
-
 import java.util.ArrayList;
 import java.util.Map;
 import static com.almasb.fxgl.dsl.FXGL.*;

@@ -52,8 +52,6 @@ public class RythmSubScene extends GameSubScene {
     	}, KeyCode.E);
     	
     	
-    	/*Level level = getAssetLoader().loadLevel("RTAIparty_Rythm.txt", new TextLevelLoader(32, 32, ' '));
-    	getGameWorld().setLevel(level);*/
     	this.getGameWorld().spawn("decor",new SpawnData(0, 0));
     	Entity num1 = this.getGameWorld().spawn("numero1", new SpawnData());
     	num1.setX(270);
