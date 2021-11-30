@@ -29,9 +29,6 @@ import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.input.Input;
 import com.almasb.fxgl.input.UserAction;
-import com.almasb.fxgl.pathfinding.CellState;
-import com.almasb.fxgl.pathfinding.astar.AStarGrid;
-
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import ui.RTAISceneFactory;
@@ -105,25 +102,14 @@ public class RTAIpartyApp extends GameApplication {
 
     @Override
     protected void initGameVars(Map<String, Object> vars) {
-//        vars.put("score", 0);
-//        vars.put("coins", 0);
-//        vars.put("teleport", 0);
-//        vars.put("time", TIME_PER_LEVEL);
+
     }
     
     
     
     @Override
     protected void initGame() {
-    	
-    	AStarGrid grid = AStarGrid.fromWorld(getGameWorld(), RTAIpartyApp.MAP_SIZE, RTAIpartyApp.MAP_SIZE, RTAIpartyApp.BLOCK_SIZE, RTAIpartyApp.BLOCK_SIZE, (type) -> {
-            //if (type == RTAIpartyType.BLOCK)
-                //return CellState.NOT_WALKABLE;
 
-            return CellState.WALKABLE;
-        });
-
-        set("grid", grid);
     	
     }
     
@@ -133,23 +119,10 @@ public class RTAIpartyApp extends GameApplication {
     	
     }
 
-	public static void newParty() {
-
-//    	
-//    	System.out.println(getGameScene().getRoot().getChildren());
-    	
-    }
 
     public static void scoreBoard() {
     	System.out.println("Tableau des scores !");
-    	//getGameWorld().addEntityFactory(RTAIpartyFactoryEntity);
-    	//getGameScene().getRoot().getChildren().clear();
-//    	getGameScene().getRoot().getChildren().remove(5);
-//    	getGameWorld().addEntityFactory(RTAIpartyFactoryEntity);
-//    	Level level = getAssetLoader().loadLevel("RTAIparty_level0.txt", new TextLevelLoader(32, 32, ' '));
-//    	getGameWorld().setLevel(level);
-//    	
-//    	System.out.println(getGameScene().getRoot().getChildren());
+
     	
     }
     

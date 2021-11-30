@@ -1,6 +1,5 @@
 package com.almasb.fxglgames.RTAIparty;
 
-import static com.almasb.fxgl.dsl.FXGL.getGameWorld;
 import static com.almasb.fxgl.dsl.FXGL.getSceneService;
 import static com.almasb.fxgl.dsl.FXGL.runOnce;
 
@@ -8,8 +7,6 @@ import java.util.ArrayList;
 
 import com.almasb.fxgl.app.scene.GameSubScene;
 import com.almasb.fxgl.entity.Entity;
-import com.almasb.fxgl.scene.SubScene;
-
 import javafx.util.Duration;
 
 public class PartyManager {
@@ -38,7 +35,7 @@ public class PartyManager {
 	}
 	
 	public void startGame() {
-		this.GameScene = new DodgeSubScene(players.get(this.currentPlayer), this.currentLap, this);
+		this.GameScene = new MemorySubScene(players.get(this.currentPlayer), this.currentLap, this);
 		runOnce(() -> {
 			getSceneService().pushSubScene(this.GameScene);
 

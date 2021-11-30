@@ -36,6 +36,7 @@ import com.almasb.fxgl.physics.BoundingShape;
 import com.almasb.fxgl.physics.HitBox;
 import com.almasb.fxglgames.RTAIparty.components.DodgePlayerComponent;
 import com.almasb.fxglgames.RTAIparty.components.DodgeProjectileComponent;
+import com.almasb.fxglgames.RTAIparty.components.RythmNumberComponent;
 
 import javafx.geometry.Point2D;
 import static com.almasb.fxgl.dsl.FXGL.*;
@@ -161,15 +162,167 @@ public class RTAIpartyFactory implements EntityFactory {
     
     @Spawns("numero1")
     public Entity newnumero1(SpawnData data) {
+    	RythmNumberComponent componentNum1 = new RythmNumberComponent();
+    	componentNum1.AssignNumber(1);
+    	
         return entityBuilder()
                 .view((texture("Numero/numero1.png")))
                 .zIndex(1)
+                .with(componentNum1)
+                .build();
+    }
+    
+    @Spawns("numero2")
+    public Entity newnumero2(SpawnData data) {
+    	RythmNumberComponent componentNum2 = new RythmNumberComponent();
+    	componentNum2.AssignNumber(2);
+    	
+    	return entityBuilder()
+                .view((texture("Numero/numero2.png")))
+                .zIndex(1)
+                .with(componentNum2)
+                .build();
+    }
+    
+    
+    @Spawns("numero3")
+    public Entity newnumero3(SpawnData data) {
+    	
+    	RythmNumberComponent componentNum3 = new RythmNumberComponent();
+    	componentNum3.AssignNumber(3);
+        return entityBuilder()
+                .view((texture("Numero/numero3.png")))
+                .zIndex(1)
+                .with(componentNum3)
+                .build();
+    }
+        
+    @Spawns("numero4")
+    public Entity newnumero4(SpawnData data) {
+    	
+    	RythmNumberComponent componentNum4 = new RythmNumberComponent();
+    	componentNum4.AssignNumber(4);
+    	
+        return entityBuilder()
+                .view((texture("Numero/numero4.png")))
+                .zIndex(1)
+                .with(componentNum4)
+                .build();
+    }
+    
+    @Spawns("numero5")
+    public Entity newnumero5(SpawnData data) {
+    	
+    	RythmNumberComponent componentNum5 = new RythmNumberComponent();
+    	componentNum5.AssignNumber(5);
+    	
+        return entityBuilder()
+                .view((texture("Numero/numero5.png")))
+                .zIndex(1)
+                .with(componentNum5)
+                .build();
+    }
+    
+    @Spawns("numero6")
+    public Entity newnumero6(SpawnData data) {
+    	
+    	RythmNumberComponent componentNum6 = new RythmNumberComponent();
+    	componentNum6.AssignNumber(6);
+    	
+        return entityBuilder()
+                .view((texture("Numero/numero6.png")))
+                .zIndex(1)
+                .with(componentNum6)
+                .build();
+    }
+    
+    @Spawns("numero7")
+    public Entity newnumero7(SpawnData data) {
+    	
+    	RythmNumberComponent componentNum7 = new RythmNumberComponent();
+    	componentNum7.AssignNumber(7);
+    	
+        return entityBuilder()
+                .view((texture("Numero/numero7.png")))
+                .zIndex(1)
+                .with(componentNum7)
+                .build();
+    }
+    
+    @Spawns("numero8")
+    public Entity newnumero8(SpawnData data) {
+    	
+    	RythmNumberComponent componentNum8 = new RythmNumberComponent();
+    	componentNum8.AssignNumber(8);
+    	
+        return entityBuilder()
+                .view((texture("Numero/numero8.png")))
+                .zIndex(1)
+                .with(componentNum8)
+                .build();
+    }
+    
+    
+    @Spawns("carteGBlond")
+    public Entity newcarteGBlond(SpawnData data) {
+    	
+    	//RythmNumberComponent componentNum8 = new RythmNumberComponent();
+        return entityBuilder()
+                .view((texture("cartegarconblond.png")))
+                .zIndex(1)
+                //.with(componentNum8)
+                .build();
+    }
+    
+    @Spawns("carteGBrun")
+    public Entity newcarteGBrun(SpawnData data) {
+    	
+    	//RythmNumberComponent componentNum8 = new RythmNumberComponent();
+        return entityBuilder()
+                .view((texture("cartegarconbrun.png")))
+                .zIndex(1)
+                //.with(componentNum8)
+                .build();
+    }
+    
+    @Spawns("carteFBlonde")
+    public Entity newcarteFBlonde(SpawnData data) {
+    	
+    	//RythmNumberComponent componentNum8 = new RythmNumberComponent();
+        return entityBuilder()
+                .view((texture("cartefilleblonde.png")))
+                .zIndex(1)
+                //.with(componentNum8)
+                .build();
+    }
+    
+    @Spawns("carteFBrune")
+    public Entity newcarteFBrune(SpawnData data) {
+    	
+    	//RythmNumberComponent componentNum8 = new RythmNumberComponent();
+        return entityBuilder()
+                .view((texture("cartefillebrune.png")))
+                .zIndex(1)
+                //.with(componentNum8)
+                .build();
+    }
+    
+    
+    @Spawns("arrow")
+    public Entity newarrow(SpawnData data) {
+    	
+    	//RythmNumberComponent componentNum8 = new RythmNumberComponent();
+        return entityBuilder()
+                .view((texture("arrow.png")))
+                .zIndex(1)
+                //.with(componentNum8)
                 .build();
     }
     
     
     @Spawns("decordodge")
     public Entity newdecordodge(SpawnData data) {
+    	
         return entityBuilder()
                 .view((texture("background/decordodge.png")))
                 .zIndex(1)

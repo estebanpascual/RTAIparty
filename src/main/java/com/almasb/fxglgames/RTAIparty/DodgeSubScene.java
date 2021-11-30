@@ -109,7 +109,7 @@ public class DodgeSubScene extends GameSubScene {
     			if(EntityProjectile.get(i).getComponent(DodgeProjectileComponent.class).checkCollision(this.gamePlayer)) {
     				this.gamePlayer = null;
     				LooseGame();
-    			}    			
+    			} 
     		}
     	}
     }
@@ -184,9 +184,6 @@ public class DodgeSubScene extends GameSubScene {
             }
         }, KeyCode.ENTER);
         
-
-//    	Level level = getAssetLoader().loadLevel("RTAIparty_Dodge.txt", new TextLevelLoader(32, 32, ' '));
-//    	getGameWorld().setLevel(level);
         
         this.getGameWorld().addEntityFactory(new RTAIpartyFactory());
         this.getGameWorld().spawn("decordodge",new SpawnData(0, 0));
@@ -222,7 +219,7 @@ public class DodgeSubScene extends GameSubScene {
         
         
         
-        var pView = texture("garcon_blond_dodge");
+        var pView = texture("garcon_blond_dodge.png");
         switch (this.player.getTypePlayer()) {
 			case Player.GARCON_BLOND:
 				pView = texture("garcon_blond_dodge.png");
