@@ -34,8 +34,10 @@ import com.almasb.fxgl.entity.components.CollidableComponent;
 import com.almasb.fxgl.pathfinding.CellMoveComponent;
 import com.almasb.fxgl.physics.BoundingShape;
 import com.almasb.fxgl.physics.HitBox;
+import com.almasb.fxgl.physics.PhysicsComponent;
 import com.almasb.fxglgames.RTAIparty.components.DodgePlayerComponent;
 import com.almasb.fxglgames.RTAIparty.components.DodgeProjectileComponent;
+import com.almasb.fxglgames.RTAIparty.components.MemoryCardComponent;
 import com.almasb.fxglgames.RTAIparty.components.RythmNumberComponent;
 
 import javafx.geometry.Point2D;
@@ -97,12 +99,14 @@ public class RTAIpartyFactory implements EntityFactory {
     @Spawns("playerDodge")
     public Entity newDodgePlayer(SpawnData data) {
     	var view = texture("garcon_blond_dodge.png");
-
+    	PhysicsComponent physics = new PhysicsComponent();
+    	
         var e = entityBuilder(data)
                 .type(DODGE_PLAYER)
                 .bbox(new HitBox(new Point2D(0, 16), BoundingShape.box(32, 32)))
                 .view(view)
                 .zIndex(3)
+                .with(physics)
                 .with(new CollidableComponent(true))
                 .with(new DodgePlayerComponent())
                 .build();
@@ -128,13 +132,14 @@ public class RTAIpartyFactory implements EntityFactory {
             break; // And here
     	}
     	
-    	
+    	PhysicsComponent physics = new PhysicsComponent();
 
         var e = entityBuilder(data)
                 .type(DODGE_PROJECTILE)
-                .bbox(new HitBox(new Point2D(0, 32), BoundingShape.box(64, 64)))
+                .bbox(new HitBox(new Point2D(0, 0), BoundingShape.box(64, 64)))
                 .view(view)
                 .zIndex(3)
+                .with(physics)
                 .with(new CollidableComponent(true))
                 .with(new DodgeProjectileComponent())
                 .build();
@@ -156,6 +161,22 @@ public class RTAIpartyFactory implements EntityFactory {
     public Entity newdecor(SpawnData data) {
         return entityBuilder()
                 .view((texture("background/decorrythm.png")))
+                .zIndex(1)
+                .build();
+    }
+    
+    @Spawns("decorclasse")
+    public Entity newdecorclasse(SpawnData data) {
+        return entityBuilder()
+                .view((texture("background/classe.png")))
+                .zIndex(1)
+                .build();
+    }
+    
+    @Spawns("decortableau")
+    public Entity newdecortableau(SpawnData data) {
+        return entityBuilder()
+                .view((texture("tableau.png")))
                 .zIndex(1)
                 .build();
     }
@@ -266,44 +287,81 @@ public class RTAIpartyFactory implements EntityFactory {
     @Spawns("carteGBlond")
     public Entity newcarteGBlond(SpawnData data) {
     	
-    	//RythmNumberComponent componentNum8 = new RythmNumberComponent();
+    	MemoryCardComponent MemoryCard = new MemoryCardComponent();
         return entityBuilder()
                 .view((texture("cartegarconblond.png")))
                 .zIndex(1)
-                //.with(componentNum8)
+                .with(MemoryCard)
                 .build();
     }
     
     @Spawns("carteGBrun")
     public Entity newcarteGBrun(SpawnData data) {
     	
-    	//RythmNumberComponent componentNum8 = new RythmNumberComponent();
+    	MemoryCardComponent MemoryCard = new MemoryCardComponent();
         return entityBuilder()
                 .view((texture("cartegarconbrun.png")))
                 .zIndex(1)
-                //.with(componentNum8)
+                .with(MemoryCard)
                 .build();
     }
     
     @Spawns("carteFBlonde")
     public Entity newcarteFBlonde(SpawnData data) {
     	
-    	//RythmNumberComponent componentNum8 = new RythmNumberComponent();
+    	MemoryCardComponent MemoryCard = new MemoryCardComponent();
         return entityBuilder()
                 .view((texture("cartefilleblonde.png")))
                 .zIndex(1)
-                //.with(componentNum8)
+                .with(MemoryCard)
                 .build();
     }
     
     @Spawns("carteFBrune")
     public Entity newcarteFBrune(SpawnData data) {
     	
-    	//RythmNumberComponent componentNum8 = new RythmNumberComponent();
+    	MemoryCardComponent MemoryCard = new MemoryCardComponent();
         return entityBuilder()
                 .view((texture("cartefillebrune.png")))
                 .zIndex(1)
-                //.with(componentNum8)
+                .with(MemoryCard)
+                .build();
+    }
+    
+    
+    @Spawns("EndGBlond")
+    public Entity newEndGBlond(SpawnData data) {
+    	
+        return entityBuilder()
+                .view((texture("garcon_blond.png")))
+                .zIndex(1)
+                .build();
+    }
+    
+    @Spawns("EndGBrun")
+    public Entity newEndGBrun(SpawnData data) {
+    	
+        return entityBuilder()
+                .view((texture("garcon_brun.png")))
+                .zIndex(1)
+                .build();
+    }
+    
+    @Spawns("EndFBlonde")
+    public Entity newEndFBlonde(SpawnData data) {
+    	
+        return entityBuilder()
+                .view((texture("fille_blonde.png")))
+                .zIndex(1)
+                .build();
+    }
+    
+    @Spawns("EndFBrune")
+    public Entity newEndFBrune(SpawnData data) {
+    	
+        return entityBuilder()
+                .view((texture("fille_brune.png")))
+                .zIndex(1)
                 .build();
     }
     
@@ -311,11 +369,9 @@ public class RTAIpartyFactory implements EntityFactory {
     @Spawns("arrow")
     public Entity newarrow(SpawnData data) {
     	
-    	//RythmNumberComponent componentNum8 = new RythmNumberComponent();
         return entityBuilder()
                 .view((texture("arrow.png")))
-                .zIndex(1)
-                //.with(componentNum8)
+                .zIndex(3)
                 .build();
     }
     
@@ -328,4 +384,25 @@ public class RTAIpartyFactory implements EntityFactory {
                 .zIndex(1)
                 .build();
     }
+    
+    @Spawns("win")
+    public Entity newinfowin(SpawnData data) {
+    	
+        return entityBuilder()
+                .view((texture("win.png")))
+                .zIndex(8)
+                .build();
+    }
+    
+    @Spawns("loose")
+    public Entity newinfoloose(SpawnData data) {
+    	
+        return entityBuilder()
+                .view((texture("loose.png")))
+                .zIndex(8)
+                .build();
+    }
+    
+    
+    
 }

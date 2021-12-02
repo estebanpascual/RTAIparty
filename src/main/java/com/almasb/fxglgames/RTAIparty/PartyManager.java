@@ -35,7 +35,7 @@ public class PartyManager {
 	}
 	
 	public void startGame() {
-		this.GameScene = new MemorySubScene(players.get(this.currentPlayer), this.currentLap, this);
+		this.GameScene = new DodgeSubScene(players.get(this.currentPlayer), this.currentLap, this);
 		runOnce(() -> {
 			getSceneService().pushSubScene(this.GameScene);
 
@@ -45,8 +45,10 @@ public class PartyManager {
 	public void nextPlayer(boolean result) {
 		
 		if(result) {
+			System.out.println("Le joueur à gagné");
 			this.players.get(this.currentPlayer).onWinGame();
 		}else {
+			System.out.println("Le joueur à perdu");
 			this.players.get(this.currentPlayer).onLoseGame();
 		}
 			
@@ -55,13 +57,19 @@ public class PartyManager {
 		System.out.println("next Player");
 		
 		this.currentPlayer++;
-		checkPlayerTurn();
+		int response = checkPlayerTurn();
+		if(response == 0) {
+			return;
+		}
 		
 		while(this.players.get(this.currentPlayer).isLosing() == true) {
 			System.out.println(this.players.get(this.currentPlayer).getName() + " passe son tour car il a perdu");
 			
 			this.currentPlayer++;
-			checkPlayerTurn();
+			response = checkPlayerTurn();
+			if(response == 0) {
+				return;
+			}
 		}
 		
 		
@@ -69,12 +77,16 @@ public class PartyManager {
 	}
 	
 	
-	public void checkPlayerTurn() {
+	public int checkPlayerTurn() {
+		
 		
 		if(this.players.size()-1 < this.currentPlayer){
 			
 			int count = 0;
 			int nbPlayerLive = 0;
+			
+			this.currentPlayer = 0;
+			
 			while (this.players.size() > count) {
 				if(!this.players.get(count).isLosing()) {
 					nbPlayerLive++;
@@ -91,12 +103,17 @@ public class PartyManager {
 				}
 				
 				System.out.println("FIN DE LA PARTIE");
-				System.exit(3);
+				runOnce(() -> {
+					getSceneService().pushSubScene(new EndgameSubScene(players, this));
+
+		    	 }, Duration.seconds(0.0));
+				return 0;
+				//System.exit(3);
 			}
-				
-				
+			
 			this.currentPlayer = 0;
 			
+	
 			switch (currentGame) {
 			case DODGEGAME:
 				this.currentGame = RYTHMGAME;
@@ -114,8 +131,11 @@ public class PartyManager {
 			default:
 				break;
 			}
+			
+			return 1;
 		}
 		
+		return 1;
 	}
 	
 	

@@ -24,8 +24,8 @@ public class DodgeProjectileComponent extends Component {
 		
 		switch (this.spawn) {
 		case DOWNSPAWN:
-			Random random = new Random();
-			getEntity().setPosition(random.nextInt(300 + 300) + 300, 700);
+				Random random = new Random();
+				getEntity().setPosition(random.nextInt(300 + 300) + 300, 700);
 			
 			break;
 		
@@ -54,8 +54,7 @@ public class DodgeProjectileComponent extends Component {
 	}
 	
     public void move() {
-//    	getEntity().translateX(2);
-//    	getEntity().translateY(2);
+
     	Random random = new Random();
     	
     	switch (this.spawn) {

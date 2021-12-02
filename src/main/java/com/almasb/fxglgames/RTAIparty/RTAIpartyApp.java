@@ -110,7 +110,10 @@ public class RTAIpartyApp extends GameApplication {
     @Override
     protected void initGame() {
 
-    	
+    }
+    
+    public void goMenu() {
+    	getGameController().gotoMainMenu();
     }
     
     public void startGame(ArrayList<Player> players) {

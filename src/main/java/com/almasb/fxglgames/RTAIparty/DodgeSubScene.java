@@ -7,6 +7,7 @@ import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.entity.components.CollidableComponent;
 import com.almasb.fxgl.input.UserAction;
+import com.almasb.fxgl.physics.CollisionHandler;
 import com.almasb.fxgl.physics.PhysicsComponent;
 import com.almasb.fxgl.physics.box2d.dynamics.BodyType;
 import com.almasb.fxgl.physics.box2d.dynamics.FixtureDef;
@@ -21,7 +22,6 @@ import javafx.util.Duration;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
 
-
 import java.util.List;
 
 
@@ -35,6 +35,7 @@ public class DodgeSubScene extends GameSubScene {
     PartyManager partyManager;
     int timeCount;
     boolean isStart;
+    boolean isFinish;
     Entity startMenu;
     Entity gamePlayer;
     
@@ -83,7 +84,6 @@ public class DodgeSubScene extends GameSubScene {
    	 view.setFill(Color.BLACK);
    	 //view.setTranslateY(RTAIpartyApp.HEIGHTSIZE - 2);
    	  
-            
        return entityBuilder()
                .zIndex(5)
                .view(view)
@@ -101,7 +101,6 @@ public class DodgeSubScene extends GameSubScene {
     
     @Override
     public void onUpdate(double tpf) {
-    	
     	List<Entity> EntityProjectile = getGameWorld().getEntitiesByComponent(DodgeProjectileComponent.class);
     	for(int i = 0; i < EntityProjectile.size(); i++) {
     		EntityProjectile.get(i).getComponent(DodgeProjectileComponent.class).move();
@@ -122,7 +121,7 @@ public class DodgeSubScene extends GameSubScene {
     	this.currentLap = currentLap;
     	this.partyManager = partyManager;
     	this.isStart = false;
-    	
+    	this.isFinish = false;
     	
     	this.getInput().addAction(new UserAction("Fin") {
             @Override
@@ -138,7 +137,7 @@ public class DodgeSubScene extends GameSubScene {
     	this.getInput().addAction(new UserAction("Up") {
             @Override
             protected void onAction() {
-            	if(isStart) {
+            	if(isStart && !isFinish) {
             		getPlayerComponent().up();            		
             	}
             }
@@ -147,7 +146,7 @@ public class DodgeSubScene extends GameSubScene {
     	this.getInput().addAction(new UserAction("Down") {
             @Override
             protected void onAction() {
-            	if(isStart) {
+            	if(isStart && !isFinish) {
             		getPlayerComponent().down();
             	}
             }
@@ -156,7 +155,7 @@ public class DodgeSubScene extends GameSubScene {
     	this.getInput().addAction(new UserAction("Left") {
             @Override
             protected void onAction() {
-            	if(isStart) {
+            	if(isStart && !isFinish) {
             		getPlayerComponent().left();            		
             	}
             }
@@ -165,7 +164,7 @@ public class DodgeSubScene extends GameSubScene {
         getInput().addAction(new UserAction("Right") {
             @Override
             protected void onAction() {
-            	if(isStart) {
+            	if(isStart && !isFinish) {
             		getPlayerComponent().right();            		
             	}
             }
@@ -248,7 +247,7 @@ public class DodgeSubScene extends GameSubScene {
         
         
         this.getTimer().runAtInterval(() -> {
-        	if(this.isStart) {
+        	if(this.isStart && !isFinish) {
 	        	Entity projectile = this.getGameWorld().spawn("projectileDodge",new SpawnData(0,0));
 	            projectile.getComponent(DodgeProjectileComponent.class).init(this.currentLap);
         	}
@@ -257,7 +256,7 @@ public class DodgeSubScene extends GameSubScene {
         
         
         this.getTimer().runAtInterval(() -> {
-        	if(this.isStart) {
+        	if(this.isStart && !isFinish) {
 	        	this.timeCount--;
 	        	 Text view = FXGL.getUIFactoryService().newText("Temps restant : " + String.valueOf(this.timeCount));
 	        	 view.setFill(Color.WHITE);
@@ -266,22 +265,71 @@ public class DodgeSubScene extends GameSubScene {
 	        	TimeRemaining.getViewComponent().addChild(view);
 	        	
 	        	if(timeCount == 0) {
-	        		System.out.println("fin de partie");
-	    			getSceneService().popSubScene();
-	    			partyManager.nextPlayer(WIN);
+	        		WinGame();
 	        	}
         	}	
         }, Duration.millis(1000));
         
-       
+//        this.getPhysicsWorld().notifySensorCollisionBegin(RTAIpartyType.DODGE_PLAYER, RTAIpartyType.DODGE_PROJECTILE, (p, e) -> onCollisionDodge());
+//        onCollision();
+        
+        this.getPhysicsWorld().addCollisionHandler(new CollisionHandler(RTAIpartyType.DODGE_PLAYER, RTAIpartyType.DODGE_PROJECTILE) {
+		      public void onCollisionBegin(Entity a, Entity b) {
+
+		      }
+		      public void onCollision(Entity a, Entity b) {
+		    	  LooseGame();
+		      }
+		      public void onCollisionEnd(Entity a, Entity b) {
+
+		      }
+        });
+        
         
     	System.out.println("JEU ESQUIVE; \n joueur : "+ this.player.getName() + "\n difficulté : " + this.currentLap);
     	
     }
     
     private void LooseGame() {
+    	
     	System.out.println("fin de partie");
-		getSceneService().popSubScene();
-		partyManager.nextPlayer(LOOSE);
+    	List<Entity> EntityProjectile = getGameWorld().getEntitiesByComponent(DodgeProjectileComponent.class);
+    	for(int i = 0; i < EntityProjectile.size(); i++) {
+    		EntityProjectile.get(i).removeFromWorld();
+    	}
+    	
+    	isFinish = true;
+        this.getGameWorld().spawn("loose",new SpawnData(0, RTAIpartyApp.HEIGHTSIZE / 2));
+    	
+    	this.getTimer().runOnceAfter(()->{
+    		
+    		getSceneService().popSubScene();
+    		partyManager.nextPlayer(LOOSE);
+    		
+    	}, Duration.millis(2000));
+    	
+
+    }
+    
+    private void WinGame() {
+    	
+    	System.out.println("fin de partie");
+
+    	List<Entity> EntityProjectile = getGameWorld().getEntitiesByComponent(DodgeProjectileComponent.class);
+    	for(int i = 0; i < EntityProjectile.size(); i++) {
+    		EntityProjectile.get(i).removeFromWorld();
+    	}
+    	
+    	isFinish = true;
+        this.getGameWorld().spawn("win",new SpawnData(0, RTAIpartyApp.HEIGHTSIZE / 2));
+    	
+    	this.getTimer().runOnceAfter(()->{
+    		
+    		getSceneService().popSubScene();
+    		partyManager.nextPlayer(WIN);
+    		
+    	}, Duration.millis(2000));
+    	
+
     }
 }

@@ -1,8 +1,6 @@
 package com.almasb.fxglgames.RTAIparty;
 
-import com.almasb.fxgl.texture.Texture;
-
-public class Player {
+public class Player implements Comparable<Player> {
 	private String name;
 	private int winCount;
 	private boolean isLosing;
@@ -42,5 +40,10 @@ public class Player {
 	public boolean isLosing() {
 		return this.isLosing;
 	}
+	
+	 @Override
+	 public int compareTo(Player player) {
+		 return (player.getWinCount() - this.getWinCount());
+	 }
 	
 }

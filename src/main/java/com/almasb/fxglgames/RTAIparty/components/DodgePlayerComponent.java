@@ -2,13 +2,15 @@ package com.almasb.fxglgames.RTAIparty.components;
 
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.component.Component;
-import com.almasb.fxgl.pathfinding.CellMoveComponent;
-import com.almasb.fxgl.physics.CollisionResult;
 
 public class DodgePlayerComponent extends Component {
 	
 	private int speedPixel;
 	private Entity limit;
+	
+	public DodgePlayerComponent() {
+		System.out.println(this.isPaused());
+	}
 	
 	enum MoveDirection {
         UP, RIGHT, DOWN, LEFT
@@ -54,6 +56,6 @@ public class DodgePlayerComponent extends Component {
 
     @Override
     public void onUpdate(double tpf) {
-
+    	System.out.println("test");
     }
 }

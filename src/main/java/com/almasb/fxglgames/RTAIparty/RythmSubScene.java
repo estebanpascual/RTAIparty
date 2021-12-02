@@ -1,25 +1,15 @@
 package com.almasb.fxglgames.RTAIparty;
 
 
-import com.almasb.fxgl.animation.Interpolators;
 import com.almasb.fxgl.app.scene.GameSubScene;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.SpawnData;
-import com.almasb.fxgl.entity.level.Level;
-import com.almasb.fxgl.entity.level.text.TextLevelLoader;
 import com.almasb.fxgl.input.Input;
 import com.almasb.fxgl.input.UserAction;
-import com.almasb.fxgl.particle.ParticleEmitters;
-import com.almasb.fxgl.particle.ParticleSystem;
-import com.almasb.fxgl.scene.SubScene;
-import com.almasb.fxglgames.RTAIparty.components.DodgeProjectileComponent;
 import com.almasb.fxglgames.RTAIparty.components.RythmNumberComponent;
 
-import javafx.geometry.Point2D;
-import javafx.scene.effect.BlendMode;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -42,6 +32,7 @@ public class RythmSubScene extends GameSubScene {
     
     int timeCount;
     boolean isStart;
+    boolean isFinish;
     Entity startMenu;
     Entity actualNumber;
     
@@ -50,8 +41,6 @@ public class RythmSubScene extends GameSubScene {
     	
    	 Text view = FXGL.getUIFactoryService().newText(text);
    	 view.setFill(Color.BLACK);
-   	 //view.setTranslateY(RTAIpartyApp.HEIGHTSIZE - 2);
-   	  
             
        return entityBuilder()
                .zIndex(5)
@@ -64,8 +53,6 @@ public class RythmSubScene extends GameSubScene {
    	
   	 Text view = FXGL.getUIFactoryService().newText("C'est au tour de " + this.player.getName() + " sur le jeu de rythme !" + "\nAppuyer sur la touche Entrée pour commencer", Color.WHITE, 20.0);
   	 view.setFill(Color.BLACK);
-  	 //view.setTranslateY(RTAIpartyApp.HEIGHTSIZE - 2);
-  	  
            
       return entityBuilder()
               .zIndex(5)
@@ -101,7 +88,7 @@ public class RythmSubScene extends GameSubScene {
             @Override
             protected void onAction() {
             	
-            	if(isStart) {
+            	if(isStart && !isFinish) {
             		if(actualNumber != null) {
             			if(actualNumber.getComponent(RythmNumberComponent.class).getNumber() == 1) {
             				actualNumber.getComponent(RythmNumberComponent.class).setActive(false);
@@ -120,7 +107,7 @@ public class RythmSubScene extends GameSubScene {
             @Override
             protected void onAction() {
             	
-            	if(isStart) {
+            	if(isStart && !isFinish) {
             		if(actualNumber != null) {
             			if(actualNumber.getComponent(RythmNumberComponent.class).getNumber() == 2) {
             				actualNumber.getComponent(RythmNumberComponent.class).setActive(false);
@@ -138,7 +125,7 @@ public class RythmSubScene extends GameSubScene {
             @Override
             protected void onAction() {
             	
-            	if(isStart) {
+            	if(isStart && !isFinish) {
             		if(actualNumber != null) {
             			if(actualNumber.getComponent(RythmNumberComponent.class).getNumber() == 3) {
             				actualNumber.getComponent(RythmNumberComponent.class).setActive(false);
@@ -156,7 +143,7 @@ public class RythmSubScene extends GameSubScene {
             @Override
             protected void onAction() {
             	
-            	if(isStart) {
+            	if(isStart && !isFinish) {
             		if(actualNumber != null) {
             			if(actualNumber.getComponent(RythmNumberComponent.class).getNumber() == 4) {
             				actualNumber.getComponent(RythmNumberComponent.class).setActive(false);
@@ -173,7 +160,7 @@ public class RythmSubScene extends GameSubScene {
             @Override
             protected void onAction() {
             	
-            	if(isStart) {
+            	if(isStart && !isFinish) {
             		if(actualNumber != null) {
             			if(actualNumber.getComponent(RythmNumberComponent.class).getNumber() == 5) {
             				actualNumber.getComponent(RythmNumberComponent.class).setActive(false);
@@ -191,7 +178,7 @@ public class RythmSubScene extends GameSubScene {
             @Override
             protected void onAction() {
             	
-            	if(isStart) {
+            	if(isStart && !isFinish) {
             		if(actualNumber != null) {
             			if(actualNumber.getComponent(RythmNumberComponent.class).getNumber() == 6) {
             				actualNumber.getComponent(RythmNumberComponent.class).setActive(false);
@@ -209,7 +196,7 @@ public class RythmSubScene extends GameSubScene {
             @Override
             protected void onAction() {
             	
-            	if(isStart) {
+            	if(isStart && !isFinish) {
             		if(actualNumber != null) {
             			if(actualNumber.getComponent(RythmNumberComponent.class).getNumber() == 7) {
             				actualNumber.getComponent(RythmNumberComponent.class).setActive(false);
@@ -227,7 +214,7 @@ public class RythmSubScene extends GameSubScene {
             @Override
             protected void onAction() {
             	
-            	if(isStart) {
+            	if(isStart && !isFinish) {
             		if(actualNumber != null) {
             			if(actualNumber.getComponent(RythmNumberComponent.class).getNumber() == 8) {
             				actualNumber.getComponent(RythmNumberComponent.class).setActive(false);
@@ -317,7 +304,7 @@ public class RythmSubScene extends GameSubScene {
         List<Entity> EntityNumberRandom = getGameWorld().getEntitiesByComponent(RythmNumberComponent.class);
         
         this.getTimer().runAtInterval(() -> {
-        	if(this.isStart) {
+        	if(this.isStart && !isFinish) {
         		
         		if(actualNumber != null) {
         			if(actualNumber.getComponent(RythmNumberComponent.class).getIsActive()) {
@@ -335,12 +322,12 @@ public class RythmSubScene extends GameSubScene {
         		EntityNumber.get(index).getComponent(RythmNumberComponent.class).setActive(true);
         		this.actualNumber = EntityNumber.get(index);
         	}
-        }, Duration.millis(2000 / this.currentLap));
+        }, Duration.millis(4000 / this.currentLap));
         
         
         
         this.getTimer().runAtInterval(() -> {
-        	if(this.isStart) {
+        	if(this.isStart && !isFinish) {
 	        	this.timeCount--;
 	        	 Text view = FXGL.getUIFactoryService().newText("Temps restant : " + String.valueOf(this.timeCount));
 	        	 view.setFill(Color.BLACK);
@@ -349,9 +336,7 @@ public class RythmSubScene extends GameSubScene {
 	        	TimeRemaining.getViewComponent().addChild(view);
 	        	
 	        	if(timeCount == 0) {
-	        		System.out.println("fin de partie");
-	    			getSceneService().popSubScene();
-	    			partyManager.nextPlayer(WIN);
+	        		WinGame();
 	        	}
         	}
         }, Duration.millis(1000));
@@ -361,8 +346,28 @@ public class RythmSubScene extends GameSubScene {
     }
     
     private void LooseGame() {
-    	System.out.println("fin de partie");
-		getSceneService().popSubScene();
-		partyManager.nextPlayer(LOOSE);
+    	isFinish = true;
+		this.getGameWorld().spawn("loose",new SpawnData(0, RTAIpartyApp.HEIGHTSIZE / 2));
+		
+		this.getTimer().runOnceAfter(()->{
+    		
+    		getSceneService().popSubScene();
+    		partyManager.nextPlayer(LOOSE);
+    		
+    	}, Duration.millis(2000));
+		
+    }
+    
+    private void WinGame() {
+    	isFinish = true;
+		this.getGameWorld().spawn("win",new SpawnData(0, RTAIpartyApp.HEIGHTSIZE / 2));
+		
+		this.getTimer().runOnceAfter(()->{
+    		
+    		getSceneService().popSubScene();
+    		partyManager.nextPlayer(WIN);
+    		
+    	}, Duration.millis(2000));
+		
     }
 }
