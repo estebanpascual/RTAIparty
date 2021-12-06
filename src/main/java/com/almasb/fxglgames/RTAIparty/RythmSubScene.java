@@ -20,12 +20,17 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * @author Almas Baimagambetov (almaslvl@gmail.com)
+ * @author GROUPE5
+ * Scène secondaire pour le jeu de rythme
  */
 public class RythmSubScene extends GameSubScene {
 
+	//Joueur actuel
     Player player;
+    
+    //tour actuel
     int currentLap;
+    
     PartyManager partyManager;
     public static final boolean WIN		= true;
     public static final boolean LOOSE	= false;
@@ -37,6 +42,11 @@ public class RythmSubScene extends GameSubScene {
     Entity actualNumber;
     
     
+    /**
+     * @param text
+     * @return
+     * Retourne une entitée contenant du texte
+     */
     private Entity createTexte(String text) {
     	
    	 Text view = FXGL.getUIFactoryService().newText(text);
@@ -49,7 +59,11 @@ public class RythmSubScene extends GameSubScene {
    }
    
    
-   private Entity createStart() {
+   /**
+    * @return
+    * Retourne l'entité de menu de début de jeu
+    */
+    private Entity createStart() {
    	
   	 Text view = FXGL.getUIFactoryService().newText("C'est au tour de " + this.player.getName() + " sur le jeu de rythme !" + "\nAppuyer sur la touche Entrée pour commencer", Color.WHITE, 20.0);
   	 view.setFill(Color.BLACK);
@@ -61,6 +75,12 @@ public class RythmSubScene extends GameSubScene {
   }
    
    
+    /**
+     * @param player
+     * @param currentLap
+     * @param partyManager
+     * Constructeur e la scène
+     */
     public RythmSubScene(Player player, int currentLap, PartyManager partyManager) {
     	super(RTAIpartyApp.WIDTHSIZE, RTAIpartyApp.HEIGHTSIZE);
     	this.player = player;
@@ -345,6 +365,9 @@ public class RythmSubScene extends GameSubScene {
     	
     }
     
+    /**
+     * Fonction en cas de défaite
+     */
     private void LooseGame() {
     	isFinish = true;
 		this.getGameWorld().spawn("loose",new SpawnData(0, RTAIpartyApp.HEIGHTSIZE / 2));
@@ -358,6 +381,9 @@ public class RythmSubScene extends GameSubScene {
 		
     }
     
+    /**
+     * Fonction en cas de victoire
+     */
     private void WinGame() {
     	isFinish = true;
 		this.getGameWorld().spawn("win",new SpawnData(0, RTAIpartyApp.HEIGHTSIZE / 2));

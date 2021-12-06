@@ -27,7 +27,8 @@
 package com.almasb.fxglgames.RTAIparty;
 
 /**
- * @author Almas Baimagambetov (almaslvl@gmail.com)
+ * @author GROUPE5
+ * Classe qui regroupe des types d'entitées
  */
 public enum RTAIpartyType {
     BLOCK, DODGE_PLAYER, DODGE_PROJECTILE

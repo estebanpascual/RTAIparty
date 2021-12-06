@@ -5,6 +5,12 @@ import com.almasb.fxgl.input.Input;
 
 import javafx.geometry.Rectangle2D;
 
+/**
+ * @author GROUPE5
+ * Classe permettant d'être attaché à une entitée
+ * Permet de détecter le click sur la carte
+ *
+ */
 public class MemoryCardComponent extends Component {
 
 	public boolean checkClick(Input input) {

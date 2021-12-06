@@ -2,6 +2,12 @@ package com.almasb.fxglgames.RTAIparty.components;
 
 import com.almasb.fxgl.entity.component.Component;
 
+/**
+ * @author GROUPE5
+ * Classe permettant d'être attaché à une entitée
+ * Permet d'activer et désactiver un numéro
+ *
+ */
 public class RythmNumberComponent extends Component {
 	
 	int number;

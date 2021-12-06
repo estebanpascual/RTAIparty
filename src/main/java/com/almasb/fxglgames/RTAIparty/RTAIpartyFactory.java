@@ -51,7 +51,8 @@ import java.util.Random;
 /**
  * Factory for creating in-game entities.
  *
- * @author Almas Baimagambetov (almaslvl@gmail.com)
+ * @author GROUPE5
+ * Classes permettant de créer dfférentes entitées en fonction du nom du Spawn
  */
 public class RTAIpartyFactory implements EntityFactory {
 	
@@ -149,14 +150,7 @@ public class RTAIpartyFactory implements EntityFactory {
         return e;
     }
     
-    
-//    @Spawns("newGameTitle")
-//    public Entity newnewGameTitle(SpawnData data) {
-//        return entityBuilder()
-//                .view()
-//                .zIndex(0)
-//                .build();
-//    }
+
     @Spawns("decor")
     public Entity newdecor(SpawnData data) {
         return entityBuilder()

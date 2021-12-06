@@ -10,6 +10,10 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
+/**
+ * @author GROUPE5
+ * Classe d'un bouton permettant de sélectionner le nombre de joueur
+ */
 public class menuButtonNbPlayer extends StackPane{
 	private String name;
 	private Runnable action;

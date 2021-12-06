@@ -26,6 +26,11 @@
         <artifactId>fxgl</artifactId>
         <version>11+dev-SNAPSHOT</version>
     	</dependency>
+    	<dependency>
+		    <groupId>com.googlecode.json-simple</groupId>
+		    <artifactId>json-simple</artifactId>
+		    <version>1.1.1</version>
+		</dependency>
 	</dependencies>
 
 	<repositories>
@@ -35,7 +40,7 @@
 	    </repository>
 	</repositories>
 
-
+	
 
     <build>
         <plugins>
@@ -57,8 +62,8 @@
                     <noHeaderFiles>true</noHeaderFiles>
                     <noManPages>true</noManPages>
                     <launcher>Start-game</launcher>
-                    <jlinkImageName>TowerDefense-game</jlinkImageName>
-                    <jlinkZipName>TowerDefense-game</jlinkZipName>
+                    <jlinkImageName>RTAIparty-game</jlinkImageName>
+                    <jlinkZipName>RTAIparty-game</jlinkZipName>
                     <mainClass>${mainClassName}</mainClass>
                 </configuration>
             </plugin>

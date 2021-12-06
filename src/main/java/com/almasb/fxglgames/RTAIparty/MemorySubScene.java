@@ -22,22 +22,42 @@ import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.SpawnData;
 
 /**
- * @author Almas Baimagambetov (almaslvl@gmail.com)
+ * @author GROUPE57
+ * Scène secondaire pour le jeu de mémoire
  */
 public class MemorySubScene extends GameSubScene {
 
+	//Joueur actuellement entrain de jouer
     Player player;
+    
+    //Tour actuel
     int currentLap;
+    
+    //PartyManager
     PartyManager partyManager;
+    
+    //Boolean pour indiquant que le jeu se lance après validation du joueur
     boolean isStart;
+    
+    //Boolean pour indiqué que la partie est fini
     boolean isFinish;
+    
+    //Libéllé de lancement de jeu
     Entity startMenu;
+    
+    //Entité de la flèche
     Entity arrow;
+    
+    //carte du joueur
     Entity cardSelect;
+    
+    //Activation de l'action du joueur
     boolean playerTurn;
     
+    //Nombre de mélange de carte
     int nbTurn;
     
+    //Liste des cartes
     List<Entity> EntityCards;
     
     Entity GBlond;
@@ -45,12 +65,16 @@ public class MemorySubScene extends GameSubScene {
     Entity FBlonde;
     Entity FBrune;
     
+    /**
+     * @param text
+     * @return
+     * Fonction de création d'entité de texte
+     */
     private Entity createTexte(String text) {
     	
    	 Text view = FXGL.getUIFactoryService().newText(text);
    	 view.setFill(Color.WHITE);
-   	 //view.setTranslateY(RTAIpartyApp.HEIGHTSIZE - 2);
-   	  
+
             
        return entityBuilder()
                .zIndex(5)
@@ -58,10 +82,15 @@ public class MemorySubScene extends GameSubScene {
                .build();
    }
     
+    
+    //MACRO de victoire et de défaite
     public static final boolean WIN		= true;
     public static final boolean LOOSE	= false;
     
-    
+    /**
+     * @return
+     * Fonction de création du texte de début de scène
+     */
     private Entity createStart() {
     	
       	 Text view = FXGL.getUIFactoryService().newText("C'est au tour de " + this.player.getName() + " sur le jeu de mémoire !" + "\n\nAppuyer sur la touche Entrée pour commencer", Color.WHITE, 30.0);
@@ -75,6 +104,11 @@ public class MemorySubScene extends GameSubScene {
        
     
     
+    /**
+     * @param player
+     * @param currentLap
+     * @param partyManager
+     */
     public MemorySubScene(Player player, int currentLap, PartyManager partyManager) {
     	super(RTAIpartyApp.WIDTHSIZE, RTAIpartyApp.HEIGHTSIZE);
     	this.player = player;
@@ -84,34 +118,30 @@ public class MemorySubScene extends GameSubScene {
     	this.playerTurn = false;
     	this.nbTurn = 0;
     	
+    	//ajout de la factory
     	this.getGameWorld().addEntityFactory(new RTAIpartyFactory());
     	
+    	//enregistrement de l'input en cours
     	Input input = getInput();
-    	
-//    	input.addAction(new UserAction(new String("fin")) {
-//    		@Override
-//    		protected void onActionBegin() {
-//    			System.out.println("fin de partie");
-//    			getSceneService().popSubScene();
-//    			partyManager.nextPlayer(WIN);
-//    		}
-//
-//    	}, KeyCode.E);
-    	
     	
     	input.addAction(new UserAction("clic") {
     		@Override
     		protected void onActionBegin() {
     			
+    			//si c'est le tour du joueur
     			if(playerTurn) {
+    				//on boucle sur les cartes existantes
     				for(int i = 0; i < EntityCards.size(); i++) {
+    					//on regarde si un click c'est produit sur une carte
         				boolean bCheckClick = EntityCards.get(i).getComponent(MemoryCardComponent.class).checkClick(input);
         				if(bCheckClick) {
+        					//si le click était sur la carte qui appartenait au joueur
         					if(EntityCards.get(i) == cardSelect) {
         						System.out.println("Gagné");
         						DiscoverCard();
         						WinGame();
         					}else {
+        						//si le click était une des cartes qui n'appartenait pas au joueur
         						System.out.println("Perdu");
         						DiscoverCard();
         						LooseGame();
@@ -125,6 +155,7 @@ public class MemorySubScene extends GameSubScene {
     	}, MouseButton.PRIMARY);
     	
     	
+    	//lancement du mini-jeux lors de l'appuit sur la touche entrée
         getInput().addAction(new UserAction("Start") {
             @Override
             protected void onAction() {
@@ -141,20 +172,27 @@ public class MemorySubScene extends GameSubScene {
             }
         }, KeyCode.ENTER);
         
+        //création du libéllé de menu
         startMenu = createStart();
         startMenu.setX(450);
         startMenu.setY(50);
         
+        //ajout de l'entité dans la scène
         this.getGameWorld().addEntity(startMenu);
         
+        //création des info sur la scène
         Entity Description = createTexte("Tour de jeu de " + this.player.getName() + "\nTour n°" + this.currentLap);
         Description.setX(70);
         Description.setY(30);
         
         this.getGameWorld().addEntity(Description);
         
+        
+        //création du décor
         this.getGameWorld().spawn("decordodge",new SpawnData());
         
+        
+        //création et ajout des cartes sur la scène
         Entity carteGBlond 	= this.getGameWorld().spawn("carteGBlond",new SpawnData());
         carteGBlond.setX(300);
         carteGBlond.setY(350);
@@ -181,8 +219,9 @@ public class MemorySubScene extends GameSubScene {
         this.FBlonde 	= carteFBlonde;
         this.FBrune		= carteFBrune;
         
+        //création de la flèche indiquant la carte du joueur
         Entity arrow = this.getGameWorld().spawn("arrow",new SpawnData());
-       this.arrow = arrow;
+        this.arrow = arrow;
         
         switch (this.player.getTypePlayer()) {
 			case Player.GARCON_BLOND:
@@ -216,7 +255,10 @@ public class MemorySubScene extends GameSubScene {
     	System.out.println("JEU DE MEMOIRE; \n joueur : "+ this.player.getName() + "\n difficulté : " + this.currentLap);
     	
     }
-
+    
+    /**
+     * fonction permettant d'interchanger deux cartes en fonction du nombre de tour qu'on souhaite
+     */
     private void ChangePlace() {
     	
     	this.getTimer().runAtInterval(() -> {
@@ -256,6 +298,10 @@ public class MemorySubScene extends GameSubScene {
        	
     }
     
+    
+    /**
+     * Fonction permettant de masquer les cartes
+     */
     private void CoverCard() {
 		for(int i = 0; i < this.EntityCards.size(); i++) {
 			this.EntityCards.get(i).getViewComponent().clearChildren();
@@ -264,6 +310,9 @@ public class MemorySubScene extends GameSubScene {
 		}
     }
     
+    /**
+     * Fonction permettant de démasquer les cartes
+     */
     private void DiscoverCard() {
     	this.GBlond.getViewComponent().clearChildren();
     	this.GBlond.getViewComponent().addChild(texture("cartegarconblond.png"));
@@ -280,6 +329,10 @@ public class MemorySubScene extends GameSubScene {
     	
     }
     
+    
+    /**
+     * Fonction executant le code de défaite
+     */
     private void LooseGame() {
     	isFinish = true;
         this.getGameWorld().spawn("loose",new SpawnData(0, RTAIpartyApp.HEIGHTSIZE / 2));
@@ -293,6 +346,9 @@ public class MemorySubScene extends GameSubScene {
     	
     }
     
+    /**
+     * Fonction executant le code de victoire
+     */
     private void WinGame() {
     	
     	isFinish = true;

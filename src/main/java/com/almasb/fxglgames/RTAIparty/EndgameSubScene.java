@@ -4,8 +4,11 @@ package com.almasb.fxglgames.RTAIparty;
 import static com.almasb.fxgl.dsl.FXGL.entityBuilder;
 import static com.almasb.fxgl.dsl.FXGL.getSceneService;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+
+import org.json.simple.parser.ParseException;
 
 import com.almasb.fxgl.app.scene.GameSubScene;
 import com.almasb.fxgl.dsl.FXGL;
@@ -20,8 +23,19 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
+/**
+ * @author GROUPE5
+ *
+ */
 public class EndgameSubScene extends GameSubScene {
 	
+	ArrayList<Player> ArrPlayers;
+	
+	/**
+     * @param text
+     * @return
+     * Fonction de création d'entité de texte
+     */
     private Entity createTexte(String text) {
     	
    	 Text view = FXGL.getUIFactoryService().newText(text);
@@ -32,33 +46,53 @@ public class EndgameSubScene extends GameSubScene {
                .view(view)
                .build();
    }
-
     
-	
-
-    
+	/**
+	 * @param players
+	 * @param partyManager
+	 * Classe de fin de jeu affichant le résultat de la partie
+	 */
 	public EndgameSubScene(ArrayList<Player> players, PartyManager partyManager) {
 		super(RTAIpartyApp.WIDTHSIZE, RTAIpartyApp.HEIGHTSIZE);
 		
-		
+		this.ArrPlayers = players; 
+		//en cas d'appui sur entrée on retourne au menu
 	    this.getInput().addAction(new UserAction("goMenu") {
 	        @Override
-	        protected void onAction() {
+	        protected void onAction() {	        	
 	        	getSceneService().popSubScene();
 	        	RTAIpartyApp app = FXGL.<RTAIpartyApp>getAppCast();
+	        	try {
+					app.scoreManager.saveGameScore(ArrPlayers);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	        	
+//	        	try {
+//					app.scoreManager.viewGameScore();
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
 	        	app.goMenu();
 	        }
 	    }, KeyCode.ENTER);
 	    
-	    
+	    //ajout de la factory
 		this.getGameWorld().addEntityFactory(new RTAIpartyFactory());
         
+		//ajout du décor
 		this.getGameWorld().spawn("decorclasse",new SpawnData(0, 0));
         Entity tableau = this.getGameWorld().spawn("decortableau",new SpawnData(0, 0));
         
         tableau.setX(RTAIpartyApp.WIDTHSIZE/4);
         tableau.setY(RTAIpartyApp.HEIGHTSIZE/5);
         
+        //zoom sur le tableau
 		ScaleTransition st = new ScaleTransition(Duration.millis(10), getContentRoot());
         st.setFromX(1);
         st.setFromY(1);
@@ -71,16 +105,19 @@ public class EndgameSubScene extends GameSubScene {
         tr.setToX(getContentRoot().getTranslateX() + 2);
         tr.play();
 
-        
-        
+        //création du titre du tableau
         Entity texteTitle = createTexte("Résultat de la partie");
         texteTitle.setX(550);
         texteTitle.setY(185);
         this.getGameWorld().addEntity(texteTitle);
         
+        //trie des joueurs du plus haut nombre de point au plus bas
         Collections.sort(players);
         
+        //boucle sur tout les joueurs de la partie
         for(int i = 0; i < players.size(); i++) {
+        	
+        	//affichage du score
         	Entity textePlace = createTexte((i+1) + ") " + players.get(i).getName() + " avec " + players.get(i).getWinCount() + " point gagné");
         	textePlace.setX(400);
         	textePlace.setY(230 + (50 * i));

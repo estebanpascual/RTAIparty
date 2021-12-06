@@ -5,6 +5,13 @@ import java.util.Random;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.component.Component;
 
+/**
+ * @author GROUPE5
+ * Classe permettant d'être attaché à une entitée
+ * Permet le déplacement d'un projectile
+ * Permet la détection de collision avec le joueur
+ *
+ */
 public class DodgeProjectileComponent extends Component {
     
 	private static final int DOWNSPAWN 	= 0;
@@ -85,6 +92,11 @@ public class DodgeProjectileComponent extends Component {
     	getEntity().setRotation(getEntity().getRotation() + 2);
     }
 
+	/**
+	 * @param player
+	 * @return
+	 * Retourne si le projectile est en contact avec le joueur
+	 */
 	public boolean checkCollision(Entity player) {
 		if(player.getBoundingBoxComponent().isCollidingWith(this.getEntity().getBoundingBoxComponent())) {
 			return true;

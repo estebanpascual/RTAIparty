@@ -27,10 +27,7 @@ package com.almasb.fxglgames.RTAIparty;
 
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
-import com.almasb.fxgl.input.Input;
-import com.almasb.fxgl.input.UserAction;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseButton;
+import com.almasb.fxgl.app.scene.SceneFactory;
 import ui.RTAISceneFactory;
 import java.util.ArrayList;
 import java.util.Map;
@@ -38,65 +35,49 @@ import static com.almasb.fxgl.dsl.FXGL.*;
 
 
 /**
- * This is a basic demo of Pacman.
+ * 
+ * @author GROUPE5
+ * Classe principal contenant le jeu
  *
- * Assets taken from opengameart.org
- * (Carlos Alface 2014 kalface@gmail.com, http://c-toy.blogspot.pt/).
- *
- * @author Almas Baimagambetov (AlmasB) (almaslvl@gmail.com)
  */
 public class RTAIpartyApp extends GameApplication {
 
-
+	//taille des block de base
 	public static final int BLOCK_SIZE = 32;
-
-    public static final int MAP_SIZE = 40;
-
+    
+	//taille de la largeur de la fenêtre
     public static final int WIDTHSIZE = 1280;
+    
+    //taille de la hauteur de la fenêtre
     public static final int HEIGHTSIZE = 720;
     
     public PartyManager partyManager;
     
-    // seconds
-    public static final int TIME_PER_LEVEL = 100;
-    
+    public ScoreManager scoreManager;
+
     
     @Override
+    //Initialisation des paramètres de la fenêtre
     protected void initSettings(GameSettings settings) {
-        settings.setWidth(MAP_SIZE * BLOCK_SIZE);
-        settings.setHeight(MAP_SIZE * BLOCK_SIZE);
         settings.setWidth(WIDTHSIZE);
         settings.setHeight(HEIGHTSIZE);
         settings.setTitle("RTAIparty");
         settings.setVersion("1.0");
+        //Activation du menu principal
         settings.setMainMenuEnabled(true);
+        
+        //Permission pour la modification de la taille de fenêtre
         settings.setManualResizeEnabled(true);
         settings.setPreserveResizeRatio(true);
         
-        RTAISceneFactory SceneFactoryEntity = new RTAISceneFactory(this);
+        //Ajout du créateur de scène dans les paramètres
+        SceneFactory SceneFactoryEntity = new RTAISceneFactory(this);
         settings.setSceneFactory(SceneFactoryEntity);
     }
 
     @Override
     protected void initInput() {
     	
-    	Input input = getInput();
-    	
-    	input.addAction(new UserAction("clic") {
-    		@Override
-    		protected void onActionBegin() {
-    			
-    			System.out.println("un clic");
-    		}
-    	}, MouseButton.PRIMARY);
-        
-    	
-    	input.addAction(new UserAction(new String("test")) {
-    		@Override
-    		protected void onActionBegin() {
-    			System.out.println("un appui de touche e");
-    		}
-    	}, KeyCode.E);
     }
    
 
@@ -112,12 +93,24 @@ public class RTAIpartyApp extends GameApplication {
 
     }
     
+    /**
+     * Retour au menu principal
+     */
     public void goMenu() {
     	getGameController().gotoMainMenu();
     }
     
+    
+    /**
+     * @param players
+     * 
+     * Fonction de lancement d'une partie
+     */
     public void startGame(ArrayList<Player> players) {
+    	//création du PartyManager
     	this.partyManager = new PartyManager(players);
+    	
+    	//lancement du jeu
     	this.partyManager.startGame();
     	
     }
@@ -125,8 +118,6 @@ public class RTAIpartyApp extends GameApplication {
 
     public static void scoreBoard() {
     	System.out.println("Tableau des scores !");
-
-    	
     }
     
     @Override

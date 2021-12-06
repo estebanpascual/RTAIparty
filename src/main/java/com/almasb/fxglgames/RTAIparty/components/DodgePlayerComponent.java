@@ -3,19 +3,28 @@ package com.almasb.fxglgames.RTAIparty.components;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.component.Component;
 
+/**
+ * @author GROUPE5
+ * Classe permettant d'être attaché à une entitée
+ * Permet le déplacement du joueur
+ *
+ */
 public class DodgePlayerComponent extends Component {
 	
 	private int speedPixel;
 	private Entity limit;
 	
 	public DodgePlayerComponent() {
-		System.out.println(this.isPaused());
+
 	}
 	
 	enum MoveDirection {
         UP, RIGHT, DOWN, LEFT
 	}
 
+    /**
+     * Fonction de mouvement vers le haut
+     */
     public void up() {
     	getEntity().translateY(-2 * this.speedPixel);
     	if(!(limit.getBoundingBoxComponent().isCollidingWith(this.getEntity().getBoundingBoxComponent()))) {
@@ -24,6 +33,9 @@ public class DodgePlayerComponent extends Component {
     	
     }
 
+    /**
+     * Fonction de mouvement vers le bas
+     */
     public void down() {
     	getEntity().translateY(2 * this.speedPixel);
     	if(!(limit.getBoundingBoxComponent().isCollidingWith(this.getEntity().getBoundingBoxComponent()))) {
@@ -31,6 +43,9 @@ public class DodgePlayerComponent extends Component {
     	}
     }
 
+    /**
+     * Fonction de mouvement vers la gauche
+     */
     public void left() {
     	getEntity().translateX(-2 * this.speedPixel);
     	if(!(limit.getBoundingBoxComponent().isCollidingWith(this.getEntity().getBoundingBoxComponent()))) {
@@ -39,6 +54,9 @@ public class DodgePlayerComponent extends Component {
     	
     }
 
+    /**
+     * Fonction de mouvement vers la droite
+     */
     public void right() {
     	getEntity().translateX(2 * this.speedPixel);
     	if(!(limit.getBoundingBoxComponent().isCollidingWith(this.getEntity().getBoundingBoxComponent()))) {
@@ -46,16 +64,20 @@ public class DodgePlayerComponent extends Component {
     	}
     }
     
+    /**
+     * @param limit
+     * Ajoute la zone de limite du joueur
+     */
     public void addLimit(Entity limit) {
     	this.limit = limit;
     }
     
+    /**
+     * @param speed
+     * Ajoute le nombre de pixel de déplacement
+     */
     public void setSpeed(int speed) {
     	this.speedPixel = speed;
     }
 
-    @Override
-    public void onUpdate(double tpf) {
-    	System.out.println("test");
-    }
 }
