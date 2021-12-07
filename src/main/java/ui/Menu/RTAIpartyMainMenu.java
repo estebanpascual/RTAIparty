@@ -70,6 +70,12 @@ public class RTAIpartyMainMenu extends FXGLMenu {
 	private ArrayList <ArrayList<Player>> scoreBoard;
 	private int indexScore;
 	
+	/**
+	 * @param app Prend en paramètre l'app actuel
+	 * @throws IOException RRetourne une erreur en cas de mauvaise lecture pour le score
+	 * 
+	 * Constructeur du menu
+	 */
 	public RTAIpartyMainMenu(RTAIpartyApp app) throws IOException {
 		super(MenuType.MAIN_MENU);
 		this.app = app;
@@ -78,9 +84,13 @@ public class RTAIpartyMainMenu extends FXGLMenu {
 		this.nodeScore = new ArrayList<Node>();
 		this.indexScore = 0;
 		
+		//appel à l'initialisation
 		initMenu();
 	}
 	
+	/**
+	 * Initialisation du menu
+	 */
 	public void initMenu() {
 		
     	this.nbPlayer = 0;
@@ -156,6 +166,10 @@ public class RTAIpartyMainMenu extends FXGLMenu {
     	getContentRoot().getChildren().addAll(box, this.BoxTitle);
 	}
 	
+	/**
+	 * @throws IOException Renvoie une erreur en cas de mauvaise lectur du fichier des scores
+	 * @throws ParseException Renvoie une erreur en cas de mauvaise lectur du fichier des scores
+	 */
 	private void scoreBoard() throws IOException, ParseException {
 		
 		app.scoreManager.viewGameScore();
@@ -164,6 +178,9 @@ public class RTAIpartyMainMenu extends FXGLMenu {
 		Score();
 	}
 
+	/**
+	 * Fonction de création du menu pour le choix du nombre de joueur
+	 */
 	private void numberOfPlayer() {
 		this.titleValue.setText("NOMBRE DE JOUEUR");
 		this.BoxTitle.setTranslateX(480);
@@ -204,6 +221,9 @@ public class RTAIpartyMainMenu extends FXGLMenu {
     	
 	}
 	
+	/**
+	 * Fonction affichant le tableau des scores
+	 */
 	private void Score() {
 		this.titleValue.setText("TABLEAU DES SCORES");
 		this.BoxTitle.setTranslateX(450);
@@ -234,6 +254,10 @@ public class RTAIpartyMainMenu extends FXGLMenu {
     	
 	}
 	
+	/**
+	 * @param otherScore Passe en paramètre le changement d'index du score actuellement en visualisation
+	 * Affiche le score de la partie sélectionné
+	 */
 	private void refreshScore(int otherScore) {
 		
 		this.indexScore = this.indexScore + otherScore;
@@ -329,6 +353,10 @@ public class RTAIpartyMainMenu extends FXGLMenu {
         
 	}
 	
+	/**
+	 * @param nbPlayer Prend en paramètre le nombre de joueur
+	 *
+	 */
 	private void choiceNbPlayer(int nbPlayer) {
 		
 		System.out.println(nbPlayer);
@@ -344,6 +372,9 @@ public class RTAIpartyMainMenu extends FXGLMenu {
 	}
 	
 	
+	/**
+	 * Fonction permettant de choisir le sprite et le nom du joueur
+	 */
 	private void playerSettings() {
 		this.titleValue.setText("Création du J"+ this.choicePlayer);
 		this.BoxTitle.setTranslateX(520);
@@ -421,7 +452,11 @@ public class RTAIpartyMainMenu extends FXGLMenu {
 	}
 	
 	
-	//extends du button de menu
+	/**
+	 * @author GROUPE5
+	 *
+	 * Extends du button de menu
+	 */
 	private class menuButton extends StackPane{
 		private String name;
 		String description;

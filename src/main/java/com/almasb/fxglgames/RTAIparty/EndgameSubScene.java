@@ -32,8 +32,8 @@ public class EndgameSubScene extends GameSubScene {
 	ArrayList<Player> ArrPlayers;
 	
 	/**
-     * @param text
-     * @return
+     * @param text Texte qui sera contenu dans notre entité
+     * @return Retourn l'entité contenant le texte
      * Fonction de création d'entité de texte
      */
     private Entity createTexte(String text) {
@@ -48,8 +48,8 @@ public class EndgameSubScene extends GameSubScene {
    }
     
 	/**
-	 * @param players
-	 * @param partyManager
+	 * @param players Liste des joueurs de la partie
+	 * @param partyManager Manager de la partie
 	 * Classe de fin de jeu affichant le résultat de la partie
 	 */
 	public EndgameSubScene(ArrayList<Player> players, PartyManager partyManager) {

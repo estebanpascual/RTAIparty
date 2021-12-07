@@ -31,5 +31,16 @@ package com.almasb.fxglgames.RTAIparty;
  * Classe qui regroupe des types d'entitées
  */
 public enum RTAIpartyType {
-    BLOCK, DODGE_PLAYER, DODGE_PROJECTILE
+    /**
+     * Enum correspondant au block
+     */
+    BLOCK, 
+    /**
+     * Enum correspondant au joueur
+     */
+    DODGE_PLAYER, 
+    /**
+     * Enum correspondant aux projectiles
+     */
+    DODGE_PROJECTILE
 }

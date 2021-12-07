@@ -22,6 +22,9 @@ public class DodgeProjectileComponent extends Component {
 	private int spawn;
 	private int lap;
 	
+	/**
+	 * @param lap Prend en paramètre le nombre de tour actuel
+	 */
 	public void init(int lap) {
 		
 		this.spawn = (int)(Math.random() * 4);
@@ -60,6 +63,9 @@ public class DodgeProjectileComponent extends Component {
 		
 	}
 	
+    /**
+     * Fonction de mouvement des projectiles
+     */
     public void move() {
 
     	Random random = new Random();
@@ -93,8 +99,8 @@ public class DodgeProjectileComponent extends Component {
     }
 
 	/**
-	 * @param player
-	 * @return
+	 * @param player Joueur actuellement sur la scène
+	 * @return Retourne un résultat de collision avec le joueur en boolean
 	 * Retourne si le projectile est en contact avec le joueur
 	 */
 	public boolean checkCollision(Entity player) {

@@ -20,6 +20,11 @@ public class RTAISceneFactory extends SceneFactory {
 	RTAIpartyMainMenu MainMenu;
 	RTAIpartyApp app;
 	
+	/**
+	 * @param app Prend en paramètre l'app actuel
+	 * 
+	 * Constructeur de la classe
+	 */
 	public RTAISceneFactory(RTAIpartyApp app) {
 		this.app = app;
 	}

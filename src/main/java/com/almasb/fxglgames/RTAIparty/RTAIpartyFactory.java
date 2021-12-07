@@ -56,6 +56,10 @@ import java.util.Random;
  */
 public class RTAIpartyFactory implements EntityFactory {
 	
+    /**
+     * @param data Data de l'entité
+     * @return Retourne l'entité créée
+     */
     @Spawns("0")
     public Entity newBlockBleu(SpawnData data) {
         var view = texture("DodgeBlock.png");
@@ -69,6 +73,10 @@ public class RTAIpartyFactory implements EntityFactory {
                 .build();
     }
     
+    /**
+     * @param data Data de l'entité
+     * @return Retourne l'entité créée
+     */
     @Spawns("1")
     public Entity newBlockRouge(SpawnData data) {
         var view = texture("block-rouge.png");
@@ -82,6 +90,10 @@ public class RTAIpartyFactory implements EntityFactory {
                 .build();
     }
 
+    /**
+     * @param data Data de l'entité
+     * @return Retourne l'entité créée
+     */
     @Spawns("2")
     public Entity newBlockViolet(SpawnData data) {
         var view = texture("block-violet.png");
@@ -96,7 +108,10 @@ public class RTAIpartyFactory implements EntityFactory {
     }
     
     
-    
+    /**
+     * @param data Data de l'entité
+     * @return Retourne l'entité créée
+     */
     @Spawns("playerDodge")
     public Entity newDodgePlayer(SpawnData data) {
     	var view = texture("garcon_blond_dodge.png");
@@ -117,6 +132,10 @@ public class RTAIpartyFactory implements EntityFactory {
         return e;
     }
     
+    /**
+     * @param data Data de l'entité
+     * @return Retourne l'entité créée
+     */
     @Spawns("projectileDodge")
     public Entity newDodgeProjectile(SpawnData data) {
     	Random randomTexture = new Random();
@@ -150,7 +169,10 @@ public class RTAIpartyFactory implements EntityFactory {
         return e;
     }
     
-
+    /**
+     * @param data Data de l'entité
+     * @return Retourne l'entité créée
+     */
     @Spawns("decor")
     public Entity newdecor(SpawnData data) {
         return entityBuilder()
@@ -159,6 +181,10 @@ public class RTAIpartyFactory implements EntityFactory {
                 .build();
     }
     
+    /**
+     * @param data Data de l'entité
+     * @return Retourne l'entité créée
+     */
     @Spawns("decorclasse")
     public Entity newdecorclasse(SpawnData data) {
         return entityBuilder()
@@ -167,6 +193,10 @@ public class RTAIpartyFactory implements EntityFactory {
                 .build();
     }
     
+    /**
+     * @param data Data de l'entité
+     * @return Retourne l'entité créée
+     */
     @Spawns("decortableau")
     public Entity newdecortableau(SpawnData data) {
         return entityBuilder()
@@ -175,6 +205,10 @@ public class RTAIpartyFactory implements EntityFactory {
                 .build();
     }
     
+    /**
+     * @param data Data de l'entité
+     * @return Retourne l'entité créée
+     */
     @Spawns("numero1")
     public Entity newnumero1(SpawnData data) {
     	RythmNumberComponent componentNum1 = new RythmNumberComponent();
@@ -187,6 +221,10 @@ public class RTAIpartyFactory implements EntityFactory {
                 .build();
     }
     
+    /**
+     * @param data Data de l'entité
+     * @return Retourne l'entité créée
+     */
     @Spawns("numero2")
     public Entity newnumero2(SpawnData data) {
     	RythmNumberComponent componentNum2 = new RythmNumberComponent();
@@ -200,6 +238,10 @@ public class RTAIpartyFactory implements EntityFactory {
     }
     
     
+    /**
+     * @param data Data de l'entité
+     * @return Retourne l'entité créée
+     */
     @Spawns("numero3")
     public Entity newnumero3(SpawnData data) {
     	
@@ -211,7 +253,11 @@ public class RTAIpartyFactory implements EntityFactory {
                 .with(componentNum3)
                 .build();
     }
-        
+    
+    /**
+     * @param data Data de l'entité
+     * @return Retourne l'entité créée
+     */
     @Spawns("numero4")
     public Entity newnumero4(SpawnData data) {
     	
@@ -225,6 +271,10 @@ public class RTAIpartyFactory implements EntityFactory {
                 .build();
     }
     
+    /**
+     * @param data Data de l'entité
+     * @return Retourne l'entité créée
+     */
     @Spawns("numero5")
     public Entity newnumero5(SpawnData data) {
     	
@@ -238,6 +288,10 @@ public class RTAIpartyFactory implements EntityFactory {
                 .build();
     }
     
+    /**
+     * @param data Data de l'entité
+     * @return Retourne l'entité créée
+     */
     @Spawns("numero6")
     public Entity newnumero6(SpawnData data) {
     	
@@ -251,6 +305,11 @@ public class RTAIpartyFactory implements EntityFactory {
                 .build();
     }
     
+    
+    /**
+     * @param data Data de l'entité
+     * @return Retourne l'entité créée
+     */
     @Spawns("numero7")
     public Entity newnumero7(SpawnData data) {
     	
@@ -264,6 +323,10 @@ public class RTAIpartyFactory implements EntityFactory {
                 .build();
     }
     
+    /**
+     * @param data Data de l'entité
+     * @return Retourne l'entité créée
+     */
     @Spawns("numero8")
     public Entity newnumero8(SpawnData data) {
     	
@@ -277,7 +340,10 @@ public class RTAIpartyFactory implements EntityFactory {
                 .build();
     }
     
-    
+    /**
+     * @param data Data de l'entité
+     * @return Retourne l'entité créée
+     */
     @Spawns("carteGBlond")
     public Entity newcarteGBlond(SpawnData data) {
     	
@@ -289,6 +355,10 @@ public class RTAIpartyFactory implements EntityFactory {
                 .build();
     }
     
+    /**
+     * @param data Data de l'entité
+     * @return Retourne l'entité créée
+     */
     @Spawns("carteGBrun")
     public Entity newcarteGBrun(SpawnData data) {
     	
@@ -300,6 +370,10 @@ public class RTAIpartyFactory implements EntityFactory {
                 .build();
     }
     
+    /**
+     * @param data Data de l'entité
+     * @return Retourne l'entité créée
+     */
     @Spawns("carteFBlonde")
     public Entity newcarteFBlonde(SpawnData data) {
     	
@@ -311,6 +385,10 @@ public class RTAIpartyFactory implements EntityFactory {
                 .build();
     }
     
+    /**
+     * @param data Data de l'entité
+     * @return Retourne l'entité créée
+     */
     @Spawns("carteFBrune")
     public Entity newcarteFBrune(SpawnData data) {
     	
@@ -322,7 +400,10 @@ public class RTAIpartyFactory implements EntityFactory {
                 .build();
     }
     
-    
+    /**
+     * @param data Data de l'entité
+     * @return Retourne l'entité créée
+     */
     @Spawns("EndGBlond")
     public Entity newEndGBlond(SpawnData data) {
     	
@@ -332,6 +413,10 @@ public class RTAIpartyFactory implements EntityFactory {
                 .build();
     }
     
+    /**
+     * @param data Data de l'entité
+     * @return Retourne l'entité créée
+     */
     @Spawns("EndGBrun")
     public Entity newEndGBrun(SpawnData data) {
     	
@@ -341,6 +426,10 @@ public class RTAIpartyFactory implements EntityFactory {
                 .build();
     }
     
+    /**
+     * @param data Data de l'entité
+     * @return Retourne l'entité créée
+     */
     @Spawns("EndFBlonde")
     public Entity newEndFBlonde(SpawnData data) {
     	
@@ -350,6 +439,10 @@ public class RTAIpartyFactory implements EntityFactory {
                 .build();
     }
     
+    /**
+     * @param data Data de l'entité
+     * @return Retourne l'entité créée
+     */
     @Spawns("EndFBrune")
     public Entity newEndFBrune(SpawnData data) {
     	
@@ -360,6 +453,10 @@ public class RTAIpartyFactory implements EntityFactory {
     }
     
     
+    /**
+     * @param data Data de l'entité
+     * @return Retourne l'entité créée
+     */
     @Spawns("arrow")
     public Entity newarrow(SpawnData data) {
     	
@@ -369,7 +466,10 @@ public class RTAIpartyFactory implements EntityFactory {
                 .build();
     }
     
-    
+    /**
+     * @param data Data de l'entité
+     * @return Retourne l'entité créée
+     */
     @Spawns("decordodge")
     public Entity newdecordodge(SpawnData data) {
     	
@@ -379,6 +479,10 @@ public class RTAIpartyFactory implements EntityFactory {
                 .build();
     }
     
+    /**
+     * @param data Data de l'entité
+     * @return Retourne l'entité créée
+     */
     @Spawns("win")
     public Entity newinfowin(SpawnData data) {
     	
@@ -388,6 +492,10 @@ public class RTAIpartyFactory implements EntityFactory {
                 .build();
     }
     
+    /**
+     * @param data Data de l'entité
+     * @return Retourne l'entité créée
+     */
     @Spawns("loose")
     public Entity newinfoloose(SpawnData data) {
     	

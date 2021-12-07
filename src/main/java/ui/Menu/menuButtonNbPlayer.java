@@ -18,8 +18,17 @@ public class menuButtonNbPlayer extends StackPane{
 	private String name;
 	private Runnable action;
 	private Text text;
+	
+	/**
+	 * Button acutellement sélectionné
+	 */
 	public SimpleObjectProperty<menuButtonNbPlayer> selectedButtonNbPlayer;
 	
+	/**
+	 * @param name Libéllé du bouton
+	 * @param action Action a executer lors du clic
+	 * @param selectedButtonNbPlayer Objet de selection
+	 */
 	public menuButtonNbPlayer (String name, Runnable action, SimpleObjectProperty<menuButtonNbPlayer> selectedButtonNbPlayer) {
 		this.name = name;
 		this.action = action;

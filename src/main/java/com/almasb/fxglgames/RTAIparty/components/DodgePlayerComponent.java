@@ -14,9 +14,6 @@ public class DodgePlayerComponent extends Component {
 	private int speedPixel;
 	private Entity limit;
 	
-	public DodgePlayerComponent() {
-
-	}
 	
 	enum MoveDirection {
         UP, RIGHT, DOWN, LEFT
@@ -65,7 +62,7 @@ public class DodgePlayerComponent extends Component {
     }
     
     /**
-     * @param limit
+     * @param limit Paramètre d'entité de zone
      * Ajoute la zone de limite du joueur
      */
     public void addLimit(Entity limit) {
@@ -73,7 +70,7 @@ public class DodgePlayerComponent extends Component {
     }
     
     /**
-     * @param speed
+     * @param speed Paramètre de nombre de pixel
      * Ajoute le nombre de pixel de déplacement
      */
     public void setSpeed(int speed) {

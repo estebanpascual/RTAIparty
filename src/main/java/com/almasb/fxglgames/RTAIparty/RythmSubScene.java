@@ -32,7 +32,15 @@ public class RythmSubScene extends GameSubScene {
     int currentLap;
     
     PartyManager partyManager;
+    
+    /**
+     * Macro de victoire
+     */
     public static final boolean WIN		= true;
+    
+    /**
+     * Macro de défaite
+     */
     public static final boolean LOOSE	= false;
     
     int timeCount;
@@ -43,9 +51,9 @@ public class RythmSubScene extends GameSubScene {
     
     
     /**
-     * @param text
-     * @return
-     * Retourne une entitée contenant du texte
+     * @param text Texte qui sera contenu dans notre entité
+     * @return Retourn l'entité contenant le texte
+     * Fonction de création d'entité de texte
      */
     private Entity createTexte(String text) {
     	
@@ -60,8 +68,8 @@ public class RythmSubScene extends GameSubScene {
    
    
    /**
-    * @return
-    * Retourne l'entité de menu de début de jeu
+     * @return Retourne l'entité contenant le texte du début de jeu
+     * Fonction de création du texte de début de scène
     */
     private Entity createStart() {
    	
@@ -76,10 +84,11 @@ public class RythmSubScene extends GameSubScene {
    
    
     /**
-     * @param player
-     * @param currentLap
-     * @param partyManager
-     * Constructeur e la scène
+     * @param player Joueur actuel
+     * @param currentLap Tour actuel
+     * @param partyManager Manager de la partie
+     * 
+     * Constructeur de la scène
      */
     public RythmSubScene(Player player, int currentLap, PartyManager partyManager) {
     	super(RTAIpartyApp.WIDTHSIZE, RTAIpartyApp.HEIGHTSIZE);

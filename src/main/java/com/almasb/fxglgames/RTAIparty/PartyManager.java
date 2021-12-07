@@ -31,14 +31,24 @@ public class PartyManager {
 	//scène actuel
 	private GameSubScene GameScene;
 
-	//MACRO pour les différents mini-jeux
+	/**
+	 * Macro correspondant au jeu d'esquive
+	 */
 	public static final int DODGEGAME = 1;
+	
+	/**
+	 * Macro correspondant au jeu de rythme
+	 */
 	public static final int RYTHMGAME = 2;
+	
+	/**
+	 * Macro correspondant au jeu de mémoire
+	 */
 	public static final int MEMORYGAME= 3;
 	
 	
 	/**
-	 * @param players
+	 * @param players Liste des joueurs à ajouter au manager
 	 * Constructeur du PartyManager
 	 */
 	PartyManager(ArrayList<Player> players){
@@ -50,7 +60,7 @@ public class PartyManager {
 	
 	
 	/**
-	 * @param p
+	 * @param p Joueur à ajouter au manager
 	 */
 	public void addPlayer(Player p) {
 		players.add(p);
@@ -69,7 +79,7 @@ public class PartyManager {
 	}
 	
 	/**
-	 * @param result
+	 * @param result Boolean définissant la victoire ou la défaite du joueur
 	 * Fonction de récupération de fin de mini-jeux
 	 */
 	public void nextPlayer(boolean result) {
@@ -120,7 +130,7 @@ public class PartyManager {
 	
 
 	/**
-	 * @return
+	 * @return Retourne un boolean définissant si la partie dois se finir
 	 * Fonction permettant de vérifier si les joueurs sont en vie
 	 * Fonction permettant de passer au mini-jeu suivant
 	 */

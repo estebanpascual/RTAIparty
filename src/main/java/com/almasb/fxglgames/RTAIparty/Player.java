@@ -10,14 +10,30 @@ public class Player implements Comparable<Player> {
 	private boolean isLosing;
 	private int typePlayer;
 	
+	
+	/**
+	 * Macro correspondant au sprite du garçon blond
+	 */
 	public static final int GARCON_BLOND	= 1;
+	
+	/**
+	 * Macro correspondant au sprite du garçon brun
+	 */
 	public static final int GARCON_BRUN 	= 2;
+	
+	/**
+	 * Macro correspondant au sprite de la fille blonde
+	 */
 	public static final int FILLE_BLONDE	= 3;
+	
+	/**
+	 * Macro correspondant au sprite de la fille brune
+	 */
 	public static final int FILLE_BRUNE		= 4;
 
 	/**
-	 * @param name
-	 * @param typePlayer
+	 * @param name Nom du joueur
+	 * @param typePlayer Type de sprite a affecter sur le joueur
 	 * Constructeur de classe
 	 */
 	public Player(String name, int typePlayer){
@@ -25,6 +41,15 @@ public class Player implements Comparable<Player> {
 		this.typePlayer = typePlayer;
 	}
 
+	/**
+	 * 
+	 * @param name  Nom du joueur
+	 * @param typePlayer Type de sprite a affecter sur le joueur
+	 * @param winCount Nombre de victoire
+	 * @param isLosing Si le joueur a perdu
+	 * 
+	 * Surcharge du constructeur
+	 */
 	public Player(String name, int typePlayer, int winCount, boolean isLosing){
 		this.name = name;
 		this.typePlayer = typePlayer;
@@ -33,7 +58,7 @@ public class Player implements Comparable<Player> {
 	}
 	
 	/**
-	 * @return
+	 * @return Retourne le nom du joueur
 	 * Méthode permettant de récupérer le nom du joueur
 	 */
 	public String getName() {
@@ -41,7 +66,7 @@ public class Player implements Comparable<Player> {
 	}
 	
 	/**
-	 * @return
+	 * @return Retourne le type de sprite
 	 * Méthode permettant de récupérer le type de sprite du joueur
 	 */
 	public int getTypePlayer() {
@@ -49,7 +74,7 @@ public class Player implements Comparable<Player> {
 	}
 	
 	/**
-	 * @return
+	 * @return Retourne les points de victoire
 	 * Méthode qui retourne le nombre de mini-jeux gagné
 	 */
 	public int getWinCount() {

@@ -56,13 +56,19 @@ public class DodgeSubScene extends GameSubScene {
     //Entité correspondant 
     Entity gamePlayer;
     
-    //MACRO de victoire et de défaite
+    /**
+     * Macro de victoire
+     */
     public static final boolean WIN		= true;
+    
+    /**
+     * Macro de défaite
+     */
     public static final boolean LOOSE	= false;
     
     
     /**
-     * @return
+     * @return Retourne l'entité servant à délimiter la zone du jeu
      * Fonction de création de la zone de limite de jeu
      */
     private Entity createPhysicsEntity() {
@@ -88,8 +94,8 @@ public class DodgeSubScene extends GameSubScene {
     
     
     /**
-     * @param text
-     * @return
+     * @param text Texte qui sera contenu dans notre entité
+     * @return Retourn l'entité contenant le texte
      * Fonction de création d'entité de texte
      */
     private Entity createTexte(String text) {
@@ -105,7 +111,7 @@ public class DodgeSubScene extends GameSubScene {
     
     
     /**
-     * @return
+     * @return Retourne l'entité contenant le texte du début de jeu
      * Fonction de création du texte de début de scène
      */
     private Entity createStart() {
@@ -121,7 +127,7 @@ public class DodgeSubScene extends GameSubScene {
     
     
     /**
-     * @return
+     * @return Retourne l'entité du joueur dans la scène
      * Fonction qui retourne le joueur de la scène
      */
     public Entity getPlayer() {
@@ -129,7 +135,7 @@ public class DodgeSubScene extends GameSubScene {
     }
     
     /**
-     * @return
+     * @return Retourne le component attaché au joueur
      * FOnction qui retourne le component de l'entité du joueur
      */
     public DodgePlayerComponent getPlayerComponent() {
@@ -159,9 +165,9 @@ public class DodgeSubScene extends GameSubScene {
     
     
     /**
-     * @param player
-     * @param currentLap
-     * @param partyManager
+     * @param player Joueur actuel
+     * @param currentLap Tour actuel
+     * @param partyManager Manager de la partie
      * 
      * Constructeur de la scène
      */

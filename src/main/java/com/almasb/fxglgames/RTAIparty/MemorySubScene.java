@@ -66,8 +66,8 @@ public class MemorySubScene extends GameSubScene {
     Entity FBrune;
     
     /**
-     * @param text
-     * @return
+     * @param text Texte qui sera contenu dans notre entité
+     * @return Retourn l'entité contenant le texte
      * Fonction de création d'entité de texte
      */
     private Entity createTexte(String text) {
@@ -82,13 +82,19 @@ public class MemorySubScene extends GameSubScene {
                .build();
    }
     
-    
-    //MACRO de victoire et de défaite
+
+    /**
+     * Macro de victoire
+     */
     public static final boolean WIN		= true;
+    
+    /**
+     * Macro de défaite
+     */
     public static final boolean LOOSE	= false;
     
     /**
-     * @return
+     * @return Retourne l'entité contenant le texte du début de jeu
      * Fonction de création du texte de début de scène
      */
     private Entity createStart() {
@@ -105,9 +111,11 @@ public class MemorySubScene extends GameSubScene {
     
     
     /**
-     * @param player
-     * @param currentLap
-     * @param partyManager
+     * @param player Joueur actuel
+     * @param currentLap Tour actuel
+     * @param partyManager Manager de la partie
+     * 
+     * Constructeur de la scène
      */
     public MemorySubScene(Player player, int currentLap, PartyManager partyManager) {
     	super(RTAIpartyApp.WIDTHSIZE, RTAIpartyApp.HEIGHTSIZE);

@@ -42,17 +42,30 @@ import static com.almasb.fxgl.dsl.FXGL.*;
  */
 public class RTAIpartyApp extends GameApplication {
 
-	//taille des block de base
+	/**
+	 * taille des block de base
+	 */
 	public static final int BLOCK_SIZE = 32;
     
-	//taille de la largeur de la fenêtre
+	
+    /**
+     * //taille de la largeur de la fenêtre
+     */
     public static final int WIDTHSIZE = 1280;
     
-    //taille de la hauteur de la fenêtre
+    /**
+     * taille de la hauteur de la fenêtretaille de la hauteur de la fenêtre
+     */
     public static final int HEIGHTSIZE = 720;
     
+    /**
+     * PartyManager de l'application
+     */
     public PartyManager partyManager;
     
+    /**
+     * ScoreManager de l'application
+     */
     public ScoreManager scoreManager;
 
     
@@ -102,7 +115,7 @@ public class RTAIpartyApp extends GameApplication {
     
     
     /**
-     * @param players
+     * @param players Liste des joueurs a ajouter au manager
      * 
      * Fonction de lancement d'une partie
      */
@@ -115,10 +128,6 @@ public class RTAIpartyApp extends GameApplication {
     	
     }
 
-
-    public static void scoreBoard() {
-    	System.out.println("Tableau des scores !");
-    }
     
     @Override
     protected void initPhysics() {
@@ -136,6 +145,9 @@ public class RTAIpartyApp extends GameApplication {
     	//System.out.println("update !");
     }
     
+    /**
+     * @param args Argument du main
+     */
     public static void main(String[] args) {
         launch(args);
     }

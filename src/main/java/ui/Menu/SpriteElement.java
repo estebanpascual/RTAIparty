@@ -4,6 +4,11 @@ import com.almasb.fxgl.texture.Texture;
 
 import javafx.scene.shape.Polygon;
 
+/**
+ * @author GROUPE5
+ * 
+ * Classe permettant de stocker les informations des sprites pour le choix des joueurs
+ */
 public class SpriteElement {
     	Texture spritePlayer;
     	private boolean choose;
@@ -36,35 +41,59 @@ public class SpriteElement {
 //    		return choose;
 //    	}
     	
+    	/**
+    	 * Fonction a appelé pour désélectionner le sprite
+    	 */
     	public void Unselect() {
     		this.CursorSelect.setVisible(false);
     	}
     	
+    	/**
+    	 * Fonction a appelé pour sélectionner le sprite
+    	 */
     	public void Select() {
     		this.CursorSelect.setVisible(true);
     	}
     	
+    	/**
+    	 * @return Retourne la texture du sprite
+    	 */
     	public Texture getTexture() {
     		return this.spritePlayer;
     	}
     	
+    	/**
+    	 * @return Retourne le curseur du sprite
+    	 */
     	public Polygon getCursorSelect() {
     		return this.CursorSelect;
     	}
     	
+    	/**
+    	 * @return Retourne le type de sprite
+    	 */
     	public int getTypePlayer() {
     		return this.typePlayer;
     	}
     	
+    	/**
+    	 * @return Retourne le nom du sprite
+    	 */
     	public String getValue() {
     		return this.name;
     	}
     	
+    	/**
+    	 * Fonction a appelé pour indiquer que le sprite est choisis
+    	 */
     	public void validSprite() {
     		this.choose = true;
     		this.spritePlayer.setOpacity(0.3);
     	}
     	
+    	/**
+    	 * @return Retourne si le sprite est déjà choisis
+    	 */
     	public boolean AlreadyChoose() {
     		return this.choose;
     	}

@@ -13,6 +13,10 @@ import javafx.geometry.Rectangle2D;
  */
 public class MemoryCardComponent extends Component {
 
+	/**
+	 * @param input Input Content la position de la souris lors du clic
+	 * @return Renvoie si la carte est dans la zone du clic
+	 */
 	public boolean checkClick(Input input) {
 		
 		Rectangle2D cooCard = new Rectangle2D(this.getEntity().getX(), this.getEntity().getY(), 150, 212);
