@@ -224,10 +224,11 @@ public class RTAIpartyMainMenu extends FXGLMenu {
         TranslateTransition tr = new TranslateTransition(Duration.millis(900), getContentRoot());
         tr.setToY(getContentRoot().getTranslateY() + 150);
         tr.setToX(getContentRoot().getTranslateX() + 2);
+        tr.setOnFinished(e -> {refreshScore(0);});
         tr.play();
         
         
-        refreshScore(0);
+        
 
         
     	
